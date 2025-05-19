@@ -92,9 +92,9 @@ for i in range(st.session_state.feedback_count):
             if painel and feedback:
                 feedbacks[painel] = feedback
 
-if st.button("Adicionar outro feedback"):
-    st.session_state.feedback_count += 1
-    st.rerun()
+# if st.button("Adicionar outro feedback"):
+#     st.session_state.feedback_count += 1
+#     st.rerun()
 
 # === FERRAMENTAS ===
 st.subheader("Ferramentas que você utiliza")
