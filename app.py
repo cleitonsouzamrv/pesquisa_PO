@@ -20,21 +20,6 @@ with st.sidebar:
     st.title("Levantamento de Ferramentas e Painéis PBI: Planejamento Operacional")
     st.markdown("Este aplicativo coleta informações sobre ferramentas e painéis utilizados pela equipe de Planejamento Operacional.")
 
-# Campos do formulário
-st.title("Pesquisa: Ferramentas utilizadas pela Equipe de Planejamento Operacional")
-st.markdown("Preencha as informações abaixo sobre as ferramentas e painéis de Power BI que você utiliza no seu dia a dia.")
-
-email = st.text_input("Seu e-mail MRV")
-
-st.subheader("Ferramenta ou Painel 1")
-ferramenta_1 = st.text_input("Nome da ferramenta ou painel")
-categoria_1 = st.selectbox("Categoria", [
-    "Painel Power BI", "Ferramenta de Planejamento", "Análise de Dados", "Automação",
-    "Controle Financeiro", "Gestão de Projetos", "Comunicação", "Outra"
-])
-impacto_1 = st.slider("Impacto no seu trabalho", 1, 5, 3)
-comentario_1 = st.text_area("Comentários adicionais")
-
 # GitHub config
 GITHUB_TOKEN = st.secrets["github"]["token"]
 GITHUB_USERNAME = st.secrets["github"]["username"]
@@ -70,37 +55,58 @@ def salvar_planilha_no_github(df, sha):
     response = requests.put(url, headers=headers, data=json.dumps(data))
     return response.status_code == 201 or response.status_code == 200
 
-if st.button("Salvar e Enviar Resposta"):
-    erros = []
-    if not email:
-        erros.append("- E-mail MRV")
-    if not ferramenta_1:
-        erros.append("- Nome da ferramenta ou painel")
+# Tabs
+aba1, aba2 = st.tabs(["📋 Formulário", "🔐 Área Administrativa"])
 
-    if erros:
-        st.error("Por favor, preencha os seguintes campos obrigatórios:\n" + "\n".join(erros))
-    else:
-        nova_resposta = {
-            "E-mail MRV": email,
-            "Ferramenta/Painel": ferramenta_1,
-            "Categoria": categoria_1,
-            "Impacto": impacto_1,
-            "Comentários": comentario_1
-        }
-        df_novo = pd.DataFrame([nova_resposta])
+with aba1:
+    st.title("Pesquisa: Ferramentas utilizadas pela Equipe de Planejamento Operacional")
+    st.markdown("Preencha as informações abaixo sobre as ferramentas e painéis de Power BI que você utiliza no seu dia a dia.")
 
-        with st.spinner("Salvando resposta..."):
-            df_existente, sha = carregar_planilha_do_github()
-            df_total = pd.concat([df_existente, df_novo], ignore_index=True)
-            sucesso = salvar_planilha_no_github(df_total, sha)
+    email = st.text_input("Seu e-mail MRV")
 
-        if sucesso:
-            st.success("✅ Resposta salva com sucesso no GitHub!")
+    st.subheader("Ferramenta ou Painel 1")
+    ferramenta_1 = st.text_input("Nome da ferramenta ou painel")
+    categoria_1 = st.selectbox("Categoria", [
+        "Painel Power BI", "Ferramenta de Planejamento", "Análise de Dados", "Automação",
+        "Controle Financeiro", "Gestão de Projetos", "Comunicação", "Outra"
+    ])
+    impacto_1 = st.slider("Impacto no seu trabalho", 1, 5, 3)
+    comentario_1 = st.text_area("Comentários adicionais")
+
+    if st.button("Salvar e Enviar Resposta"):
+        erros = []
+        if not email:
+            erros.append("- E-mail MRV")
+        if not ferramenta_1:
+            erros.append("- Nome da ferramenta ou painel")
+
+        if erros:
+            st.error("Por favor, preencha os seguintes campos obrigatórios:\n" + "\n".join(erros))
         else:
-            st.error("❌ Erro ao salvar a resposta no GitHub. Verifique o token e permissões.")
+            nova_resposta = {
+                "E-mail MRV": email,
+                "Ferramenta/Painel": ferramenta_1,
+                "Categoria": categoria_1,
+                "Impacto": impacto_1,
+                "Comentários": comentario_1
+            }
+            df_novo = pd.DataFrame([nova_resposta])
 
-# Área administrativa com senha para download da planilha
-with st.expander("🔐 Área Administrativa"):
+            with st.spinner("Salvando resposta..."):
+                df_existente, sha = carregar_planilha_do_github()
+
+                if sha is None:
+                    st.error("❌ Não foi possível carregar a planilha do GitHub. A resposta não foi salva.")
+                else:
+                    df_total = pd.concat([df_existente, df_novo], ignore_index=True)
+                    sucesso = salvar_planilha_no_github(df_total, sha)
+
+                    if sucesso:
+                        st.success("✅ Resposta salva com sucesso no GitHub!")
+                    else:
+                        st.error("❌ Erro ao salvar a resposta no GitHub. Verifique o token e permissões.")
+
+with aba2:
     senha = st.text_input("Digite a senha de administrador:", type="password")
     if senha == "planejamento.operacional":
         url = f"https://raw.githubusercontent.com/{GITHUB_USERNAME}/{REPO_NAME}/main/{FILE_PATH}"
