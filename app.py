@@ -71,6 +71,26 @@ categoria_1 = st.selectbox("Categoria", [
 impacto_1 = st.slider("Impacto no seu trabalho", 1, 5, 3)
 comentario_1 = st.text_area("Comentários adicionais")
 
+st.subheader("Quais paineis abaixo você utiliza?")
+paineis_usados = st.multiselect(
+    "Selecione todos os paineis que você utiliza:",
+    [
+        "Painel Análises Forecast de Produção - PLNESROBR009",
+        "Painel do Portifólio - Planejamento da Produção - PLNESROBR004",
+        "Painel Operações - Planejamento e Controle - PLNESROBR010",
+        "Painel Produção Produtividade e MO - PLNESROBR005",
+        "PAP - Dossiê"
+    ]
+)
+
+painel_feedback = st.selectbox(
+    "Deseja comentar sobre algum painel? (opcional)",
+    ["Nenhum"] + paineis_usados if paineis_usados else ["Nenhum"]
+)
+feedback_painel = ""
+if painel_feedback != "Nenhum":
+    feedback_painel = st.text_area(f"Comentário sobre o painel: {painel_feedback}")
+
 if st.button("Salvar e Enviar Resposta"):
     erros = []
     if not email:
@@ -87,6 +107,9 @@ if st.button("Salvar e Enviar Resposta"):
             "Categoria": categoria_1,
             "Impacto": impacto_1,
             "Comentários": comentario_1,
+            "Paineis Utilizados": "; ".join(paineis_usados),
+            "Painel com Feedback": painel_feedback if painel_feedback != "Nenhum" else "",
+            "Comentário do Painel": feedback_painel,
             "Data/Hora do Envio": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
         df_novo = pd.DataFrame([nova_resposta])
