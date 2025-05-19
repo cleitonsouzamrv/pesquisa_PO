@@ -56,12 +56,13 @@ def salvar_planilha_no_github(df, sha):
     response = requests.put(url, headers=headers, data=json.dumps(data))
     return response.status_code == 201 or response.status_code == 200
 
-# Formulário
-st.title("Pesquisa: Ferramentas utilizadas pela Equipe de Planejamento Operacional")
-st.markdown("Preencha as informações abaixo sobre as ferramentas e painéis de Power BI que você utiliza no seu dia a dia.")
+# ========= FORMULÁRIO =========
+st.title("Pesquisa: Ferramentas e Painéis utilizados pela Equipe de Planejamento Operacional")
+st.markdown("Preencha as informações abaixo sobre os painéis e ferramentas que você utiliza no seu dia a dia.")
 
 email = st.text_input("Seu e-mail MRV")
 
+# === PAINÉIS USADOS E FEEDBACKS ===
 st.subheader("Quais paineis abaixo você utiliza?")
 paineis_lista = [
     "Painel Análises Forecast de Produção - PLNESROBR009",
@@ -73,60 +74,88 @@ paineis_lista = [
 paineis_usados = st.multiselect("Selecione todos os paineis que você utiliza:", paineis_lista)
 
 st.subheader("Deseja comentar sobre algum desses paineis?")
-feedbacks = {}
-indice = 0
-painel_feedback_keys = []
-
 if "feedback_count" not in st.session_state:
     st.session_state.feedback_count = 1
 
+feedbacks = {}
 for i in range(st.session_state.feedback_count):
-    col1, col2 = st.columns([2, 5])
-    with col1:
+    cols = st.columns([2, 5])
+    with cols[0]:
         painel = st.selectbox(
             f"Painel {i+1}",
             options=[""] + paineis_usados,
             key=f"painel_select_{i}"
         )
-    with col2:
+    with cols[1]:
         if painel:
-            feedback = st.text_area(f"Comentário sobre o painel selecionado", key=f"feedback_text_{i}")
+            feedback = st.text_area(f"Comentário sobre o painel", key=f"feedback_text_{i}")
             if painel and feedback:
                 feedbacks[painel] = feedback
 
 if st.button("Adicionar outro feedback"):
     st.session_state.feedback_count += 1
-    st.experimental_rerun()
+    st.rerun()
 
-st.subheader("Ferramenta ou Painel 1")
-ferramenta_1 = st.text_input("Nome da ferramenta ou painel")
-categoria_1 = st.selectbox("Categoria", [
-    "Painel Power BI", "Ferramenta de Planejamento", "Análise de Dados", "Automação",
-    "Controle Financeiro", "Gestão de Projetos", "Comunicação", "Outra"
-])
-impacto_1 = st.slider("Impacto no seu trabalho", 1, 5, 3)
-comentario_1 = st.text_area("Comentários adicionais")
+# === FERRAMENTAS ===
+st.subheader("Ferramentas que você utiliza")
 
+if "ferramenta_count" not in st.session_state:
+    st.session_state.ferramenta_count = 1
+
+ferramentas = []
+
+for i in range(st.session_state.ferramenta_count):
+    st.markdown(f"**Ferramenta {i+1}**")
+    cols = st.columns([2, 2, 2, 2, 2])
+    with cols[0]:
+        nome = st.text_input("Nome da Ferramenta", key=f"nome_{i}")
+    with cols[1]:
+        objetivo = st.text_input("Objetivo", key=f"objetivo_{i}")
+    with cols[2]:
+        categoria = st.selectbox("Categoria", [
+            "Painel Power BI", "Ferramenta de Planejamento", "Análise de Dados", "Automação",
+            "Controle Financeiro", "Gestão de Projetos", "Comunicação", "Outra"
+        ], key=f"categoria_{i}")
+    with cols[3]:
+        importancia = st.selectbox("Importância (1-5)", [1, 2, 3, 4, 5], key=f"importancia_{i}")
+    with cols[4]:
+        horas = st.text_input("Horas gastas mensais", key=f"horas_{i}")
+
+    ferramentas.append({
+        "Nome da Ferramenta": nome,
+        "Objetivo": objetivo,
+        "Categoria da Ferramenta": categoria,
+        "Importância": importancia,
+        "Horas Gastas Mensais": horas
+    })
+
+if st.button("Adicionar nova Ferramenta"):
+    st.session_state.ferramenta_count += 1
+    st.rerun()
+
+# === ENVIO ===
 if st.button("Salvar e Enviar Resposta"):
     erros = []
     if not email:
         erros.append("- E-mail MRV")
-    if not ferramenta_1:
-        erros.append("- Nome da ferramenta ou painel")
+
+    ferramentas_validas = [f for f in ferramentas if f["Nome da Ferramenta"].strip()]
+    if not ferramentas_validas:
+        erros.append("- Pelo menos uma ferramenta deve ser preenchida")
 
     if erros:
         st.error("Por favor, preencha os seguintes campos obrigatórios:\n" + "\n".join(erros))
     else:
         nova_resposta = {
             "E-mail MRV": email,
-            "Ferramenta/Painel": ferramenta_1,
-            "Categoria": categoria_1,
-            "Impacto": impacto_1,
-            "Comentários": comentario_1,
             "Paineis Utilizados": "; ".join(paineis_usados),
             "Feedbacks dos Paineis": "; ".join([f"{k}: {v}" for k, v in feedbacks.items()]),
             "Data/Hora do Envio": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
+        for j, ferramenta in enumerate(ferramentas_validas, start=1):
+            for k, v in ferramenta.items():
+                nova_resposta[f"{k} {j}"] = v
+
         df_novo = pd.DataFrame([nova_resposta])
 
         with st.spinner("Salvando resposta..."):
@@ -141,5 +170,6 @@ if st.button("Salvar e Enviar Resposta"):
                 if sucesso:
                     st.success("✅ Resposta salva com sucesso no GitHub!")
                     st.session_state.feedback_count = 1
+                    st.session_state.ferramenta_count = 1
                 else:
                     st.error("❌ Erro ao salvar a resposta no GitHub. Verifique o token e permissões.")
