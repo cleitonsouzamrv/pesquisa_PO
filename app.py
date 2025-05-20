@@ -92,6 +92,11 @@ for i in range(st.session_state.feedback_count):
             if painel and feedback:
                 feedbacks[painel] = feedback
 
+# Botão para adicionar novo bloco de feedback
+if st.button("Adicionar outro feedback"):
+    st.session_state.feedback_count += 1
+    st.rerun()
+
 # if st.button("Adicionar outro feedback"):
 #     st.session_state.feedback_count += 1
 #     st.rerun()
@@ -168,7 +173,7 @@ if st.button("Salvar e Enviar Resposta"):
                 sucesso = salvar_planilha_no_github(df_total, sha)
 
                 if sucesso:
-                    st.success("✅ Resposta salva com sucesso no GitHub!")
+                    st.success("✅ Resposta salva com sucesso. Gratidão!")
                     st.session_state.feedback_count = 1
                     st.session_state.ferramenta_count = 1
                 else:
