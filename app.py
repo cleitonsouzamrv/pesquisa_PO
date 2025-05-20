@@ -56,16 +56,17 @@ def salvar_planilha_no_github(df, sha):
         "sha": sha
     }
     response = requests.put(url, headers=headers, data=json.dumps(data))
-    return response.status_code == 201 or response.status_code == 200
+    return response.status_code in [200, 201]
 
 # ========= FORMULÁRIO =========
 st.title("Pesquisa: Ferramentas e Painéis utilizados pela Equipe de Planejamento Operacional")
 st.markdown("Preencha as informações abaixo sobre os painéis e ferramentas que você utiliza no seu dia a dia.")
 
-email = st.text_input("Seu e-mail MRV (@mrv.com.br):")
+st.subheader("👤 Identificação do usuário:")
+email = st.text_input("Seu e-mail MRV (@mrv.com.br):*")
 
 # === PAINÉIS USADOS E FEEDBACKS ===
-st.subheader("Quais paineis abaixo você utiliza?")
+st.subheader("📊 Quais painéis abaixo você utiliza?")
 paineis_lista = [
     "Painel Análises Forecast de Produção - PLNESROBR009",
     "Painel do Portifólio - Planejamento da Produção - PLNESROBR004",
@@ -80,49 +81,36 @@ if "feedback_count" not in st.session_state:
     st.session_state.feedback_count = 1
 
 feedbacks = {}
-painel_comentado = []
-
 for i in range(st.session_state.feedback_count):
     cols = st.columns([2, 5])
     with cols[0]:
-        painel = st.selectbox(
-            f"Painel {i+1}",
-            options=[""] + paineis_usados,
-            key=f"painel_select_{i}"
-        )
+        painel = st.selectbox(f"Painel {i+1}", options=[""] + paineis_usados, key=f"painel_select_{i}")
     with cols[1]:
         if painel:
-            feedback = st.text_area(f"Comentário sobre o painel", key=f"feedback_text_{i}")
+            feedback = st.text_area("Comentário", key=f"feedback_text_{i}")
             if painel and feedback:
-                if painel in feedbacks:
-                    st.warning(f"⚠️ O painel '{painel}' já foi comentado. Remova o duplicado.")
-                else:
-                    feedbacks[painel] = feedback
-                    painel_comentado.append(painel)
+                feedbacks[painel] = feedback
 
 if st.button("Adicionar outro feedback"):
     st.session_state.feedback_count += 1
     st.rerun()
 
 # === FERRAMENTAS ===
-st.subheader("Ferramentas que você utiliza")
-
+st.subheader("🔧 Ferramentas que você utiliza")
 if "ferramenta_count" not in st.session_state:
     st.session_state.ferramenta_count = 1
 
 ferramentas = []
+ferramentas_resumo = []
 
 for i in range(st.session_state.ferramenta_count):
-    st.markdown(f"---\n### 🔧 Ferramenta {i+1}")
-
-    # Linha 1: Nome e Objetivo (caixas maiores)
+    st.markdown(f"---\n### Ferramenta {i+1}")
     linha1 = st.columns([3, 3])
     with linha1[0]:
         nome = st.text_input("Nome da Ferramenta", key=f"nome_{i}")
     with linha1[1]:
         objetivo = st.text_input("Objetivo", key=f"objetivo_{i}")
 
-    # Linha 2: Categoria, Importância e Horas
     linha2 = st.columns([2, 2, 2])
     with linha2[0]:
         categoria = st.selectbox("Categoria", [
@@ -136,62 +124,61 @@ for i in range(st.session_state.ferramenta_count):
     with linha2[2]:
         horas = st.number_input("Horas gastas mensais", min_value=0.0, step=1.0, key=f"horas_{i}")
 
-    ferramentas.append({
-        "Nome da Ferramenta": nome,
-        "Objetivo": objetivo,
-        "Categoria da Ferramenta": categoria,
-        "Importância": importancia,
-        "Horas Gastas Mensais": horas
-    })
+    if nome.strip():
+        ferramentas.append(f"{nome}:{objetivo},{categoria},{importancia},{horas}")
+        ferramentas_resumo.append({
+            "Nome": nome,
+            "Objetivo": objetivo,
+            "Categoria": categoria,
+            "Importância": importancia,
+            "Horas": horas
+        })
 
 if st.button("Adicionar nova Ferramenta"):
     st.session_state.ferramenta_count += 1
     st.rerun()
 
-# === ENVIO ===
+# === ENVIO E SALVAMENTO ===
 if st.button("Salvar e Enviar Resposta"):
     erros = []
     if not email:
         erros.append("- E-mail MRV")
-
-    ferramentas_validas = [f for f in ferramentas if f["Nome da Ferramenta"].strip()]
-    if not ferramentas_validas:
+    if not ferramentas:
         erros.append("- Pelo menos uma ferramenta deve ser preenchida")
 
     if erros:
-        st.error("Por favor, corrija os erros abaixo:\n" + "\n".join(erros))
+        st.error("Por favor, corrija os seguintes campos:\n" + "\n".join(erros))
     else:
         nova_resposta = {
             "E-mail MRV": email,
-            "Paineis Utilizados": "; ".join(paineis_usados),
-            "Feedbacks dos Paineis": "; ".join([f"{k}: {v}" for k, v in feedbacks.items()]),
-            "Data/Hora do Envio": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            "Categoria": "",
+            "Impacto": "",
+            "Data/Hora do Envio": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "Painéis": "; ".join([f"{k}: {v}" for k, v in feedbacks.items()]),
+            "Ferramentas": "; ".join(ferramentas)
         }
-        for j, ferramenta in enumerate(ferramentas_validas, start=1):
-            for k, v in ferramenta.items():
-                nova_resposta[f"{k} {j}"] = v
 
         df_novo = pd.DataFrame([nova_resposta])
-
         with st.spinner("Salvando resposta..."):
             df_existente, sha = carregar_planilha_do_github()
-
             if sha is None:
-                st.error("❌ Não foi possível carregar a planilha do GitHub. A resposta não foi salva.")
+                st.error("❌ Não foi possível carregar a planilha do GitHub.")
             else:
                 df_total = pd.concat([df_existente, df_novo], ignore_index=True)
                 sucesso = salvar_planilha_no_github(df_total, sha)
-
                 if sucesso:
-                    st.success("✅ Resposta salva com sucesso. AGrdecemos por sua contribuição!")
+                    st.success("✅ Resposta salva com sucesso. Agradecemos por sua contribuição!")
                     with st.expander("🔍 Ver resumo do que foi enviado"):
                         st.markdown(f"**Email:** {email}")
-                        st.markdown("**Paineis selecionados:**")
+                        st.markdown("**Painéis selecionados:**")
                         st.markdown(", ".join(paineis_usados) if paineis_usados else "_Nenhum painel selecionado_")
+                        st.markdown("**Painéis comentados:**")
+                        for painel, comentario in feedbacks.items():
+                            st.markdown(f"- {painel}: {comentario}")
                         st.markdown("**Ferramentas preenchidas:**")
-                        for idx, f in enumerate(ferramentas_validas, 1):
-                            st.markdown(f"**{idx}.** {f['Nome da Ferramenta']} - {f['Objetivo']} ({f['Categoria da Ferramenta']}) - Importância: {f['Importância']} - {f['Horas Gastas Mensais']}h/mês")
+                        for idx, f in enumerate(ferramentas_resumo, 1):
+                            st.markdown(f"{idx}. {f['Nome']} - {f['Objetivo']} ({f['Categoria']}) • {f['Importância']} • {f['Horas']}h/mês")
                     st.session_state.feedback_count = 1
                     st.session_state.ferramenta_count = 1
                 else:
-                    st.error("❌ Erro ao salvar a resposta no GitHub. Verifique o token e permissões.")
+                    st.error("❌ Erro ao salvar a resposta no GitHub.")
