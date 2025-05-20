@@ -66,7 +66,7 @@ st.subheader("👤 Identificação do usuário:")
 email = st.text_input("Seu e-mail MRV (@mrv.com.br)*:")
 
 # === PAINÉIS USADOS E FEEDBACKS ===
-st.subheader("📊 Quais painéis abaixo você utiliza?*")
+st.subheader("📊 Quais painéis abaixo você utiliza?")
 paineis_lista = [
     "Painel Análises Forecast de Produção - PLNESROBR009",
     "Painel do Portifólio - Planejamento da Produção - PLNESROBR004",
@@ -104,7 +104,7 @@ ferramentas = []
 ferramentas_resumo = []
 
 for i in range(st.session_state.ferramenta_count):
-    st.markdown(f"---\n### Ferramenta {i+1}*")
+    st.markdown(f"---\n### Ferramenta {i+1}")
     linha1 = st.columns([3, 3])
     with linha1[0]:
         nome = st.text_input("Nome da Ferramenta*", key=f"nome_{i}")
