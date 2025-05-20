@@ -6,6 +6,8 @@ import json
 import requests
 import io
 from datetime import datetime
+from guia_lateral import mostrar_guia_lateral
+
 
 # Configuração da página
 st.set_page_config(
@@ -14,12 +16,12 @@ st.set_page_config(
     layout="wide"
 )
 
-# Sidebar com logo
 with st.sidebar:
     logo = Image.open("logo_mrv_light.png")
     st.image(logo, width=240)
-    st.title("Levantamento de Ferramentas e Painéis PBI: Planejamento Operacional")
-    st.markdown("Este aplicativo coleta informações sobre ferramentas e painéis utilizados pela equipe de Planejamento Operacional.")
+    st.title("Planejamento Operacional")
+    st.markdown("### 📝 Levantamento de Ferramentas e Painéis")
+    mostrar_guia_lateral()
 
 # GitHub config
 GITHUB_TOKEN = st.secrets["github"]["token"]
@@ -60,7 +62,7 @@ def salvar_planilha_no_github(df, sha):
 st.title("Pesquisa: Ferramentas e Painéis utilizados pela Equipe de Planejamento Operacional")
 st.markdown("Preencha as informações abaixo sobre os painéis e ferramentas que você utiliza no seu dia a dia.")
 
-email = st.text_input("Seu e-mail MRV")
+email = st.text_input("Seu e-mail MRV (@mrv.com.br):")
 
 # === PAINÉIS USADOS E FEEDBACKS ===
 st.subheader("Quais paineis abaixo você utiliza?")
@@ -78,6 +80,8 @@ if "feedback_count" not in st.session_state:
     st.session_state.feedback_count = 1
 
 feedbacks = {}
+painel_comentado = []
+
 for i in range(st.session_state.feedback_count):
     cols = st.columns([2, 5])
     with cols[0]:
@@ -90,16 +94,15 @@ for i in range(st.session_state.feedback_count):
         if painel:
             feedback = st.text_area(f"Comentário sobre o painel", key=f"feedback_text_{i}")
             if painel and feedback:
-                feedbacks[painel] = feedback
+                if painel in feedbacks:
+                    st.warning(f"⚠️ O painel '{painel}' já foi comentado. Remova o duplicado.")
+                else:
+                    feedbacks[painel] = feedback
+                    painel_comentado.append(painel)
 
-# Botão para adicionar novo bloco de feedback
 if st.button("Adicionar outro feedback"):
     st.session_state.feedback_count += 1
     st.rerun()
-
-# if st.button("Adicionar outro feedback"):
-#     st.session_state.feedback_count += 1
-#     st.rerun()
 
 # === FERRAMENTAS ===
 st.subheader("Ferramentas que você utiliza")
@@ -124,7 +127,7 @@ for i in range(st.session_state.ferramenta_count):
     with cols[3]:
         importancia = st.selectbox("Importância (1-5)", [1, 2, 3, 4, 5], key=f"importancia_{i}")
     with cols[4]:
-        horas = st.text_input("Horas gastas mensais", key=f"horas_{i}")
+        horas = st.number_input("Horas gastas mensais", min_value=0.0, step=1.0, key=f"horas_{i}")
 
     ferramentas.append({
         "Nome da Ferramenta": nome,
@@ -149,7 +152,7 @@ if st.button("Salvar e Enviar Resposta"):
         erros.append("- Pelo menos uma ferramenta deve ser preenchida")
 
     if erros:
-        st.error("Por favor, preencha os seguintes campos obrigatórios:\n" + "\n".join(erros))
+        st.error("Por favor, corrija os erros abaixo:\n" + "\n".join(erros))
     else:
         nova_resposta = {
             "E-mail MRV": email,
@@ -173,7 +176,14 @@ if st.button("Salvar e Enviar Resposta"):
                 sucesso = salvar_planilha_no_github(df_total, sha)
 
                 if sucesso:
-                    st.success("✅ Resposta salva com sucesso. Gratidão!")
+                    st.success("✅ Resposta salva com sucesso. AGrdecemos por sua contribuição!")
+                    with st.expander("🔍 Ver resumo do que foi enviado"):
+                        st.markdown(f"**Email:** {email}")
+                        st.markdown("**Paineis selecionados:**")
+                        st.markdown(", ".join(paineis_usados) if paineis_usados else "_Nenhum painel selecionado_")
+                        st.markdown("**Ferramentas preenchidas:**")
+                        for idx, f in enumerate(ferramentas_validas, 1):
+                            st.markdown(f"**{idx}.** {f['Nome da Ferramenta']} - {f['Objetivo']} ({f['Categoria da Ferramenta']}) - Importância: {f['Importância']} - {f['Horas Gastas Mensais']}h/mês")
                     st.session_state.feedback_count = 1
                     st.session_state.ferramenta_count = 1
                 else:
