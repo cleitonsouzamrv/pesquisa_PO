@@ -113,20 +113,27 @@ if "ferramenta_count" not in st.session_state:
 ferramentas = []
 
 for i in range(st.session_state.ferramenta_count):
-    st.markdown(f"**Ferramenta {i+1}**")
-    cols = st.columns([2, 2, 2, 2, 2])
-    with cols[0]:
+    st.markdown(f"---\n### 🔧 Ferramenta {i+1}")
+
+    # Linha 1: Nome e Objetivo (caixas maiores)
+    linha1 = st.columns([3, 3])
+    with linha1[0]:
         nome = st.text_input("Nome da Ferramenta", key=f"nome_{i}")
-    with cols[1]:
+    with linha1[1]:
         objetivo = st.text_input("Objetivo", key=f"objetivo_{i}")
-    with cols[2]:
+
+    # Linha 2: Categoria, Importância e Horas
+    linha2 = st.columns([2, 2, 2])
+    with linha2[0]:
         categoria = st.selectbox("Categoria", [
-            "Painel Power BI", "Ferramenta de Planejamento", "Análise de Dados", "Automação",
-            "Controle Financeiro", "Gestão de Projetos", "Comunicação", "Outra"
+            "Power BI", "Excel", "Report e-mail", "Power Point",
+            "Python", "Outra"
         ], key=f"categoria_{i}")
-    with cols[3]:
-        importancia = st.selectbox("Importância (1-5)", [1, 2, 3, 4, 5], key=f"importancia_{i}")
-    with cols[4]:
+    with linha2[1]:
+        importancia = st.selectbox("Importância", [
+            "💎 Muito Importante", "🪙 Importante", "🟢 Pouco Importante", "🟠 Não Importante"
+        ], key=f"importancia_{i}")
+    with linha2[2]:
         horas = st.number_input("Horas gastas mensais", min_value=0.0, step=1.0, key=f"horas_{i}")
 
     ferramentas.append({
