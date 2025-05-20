@@ -63,10 +63,10 @@ st.title("Pesquisa: Ferramentas e Painéis utilizados pela Equipe de Planejament
 st.markdown("Preencha as informações abaixo sobre os painéis e ferramentas que você utiliza no seu dia a dia.")
 
 st.subheader("👤 Identificação do usuário:")
-email = st.text_input("Seu e-mail MRV (@mrv.com.br):*")
+email = st.text_input("Seu e-mail MRV (@mrv.com.br)*:")
 
 # === PAINÉIS USADOS E FEEDBACKS ===
-st.subheader("📊 Quais painéis abaixo você utiliza?")
+st.subheader("📊 Quais painéis abaixo você utiliza?*")
 paineis_lista = [
     "Painel Análises Forecast de Produção - PLNESROBR009",
     "Painel do Portifólio - Planejamento da Produção - PLNESROBR004",
@@ -74,9 +74,9 @@ paineis_lista = [
     "Painel Produção Produtividade e MO - PLNESROBR005",
     "PAP - Dossiê"
 ]
-paineis_usados = st.multiselect("Selecione todos os paineis que você utiliza:", paineis_lista)
+paineis_usados = st.multiselect("Selecione todos os painéis que você utiliza:*", paineis_lista)
 
-st.subheader("Deseja comentar sobre algum desses paineis?")
+st.subheader("Deseja comentar sobre algum desses painéis?")
 if "feedback_count" not in st.session_state:
     st.session_state.feedback_count = 1
 
@@ -104,28 +104,28 @@ ferramentas = []
 ferramentas_resumo = []
 
 for i in range(st.session_state.ferramenta_count):
-    st.markdown(f"---\n### Ferramenta {i+1}")
+    st.markdown(f"---\n### Ferramenta {i+1}*")
     linha1 = st.columns([3, 3])
     with linha1[0]:
-        nome = st.text_input("Nome da Ferramenta", key=f"nome_{i}")
+        nome = st.text_input("Nome da Ferramenta*", key=f"nome_{i}")
     with linha1[1]:
-        objetivo = st.text_input("Objetivo", key=f"objetivo_{i}")
+        objetivo = st.text_input("Objetivo*", key=f"objetivo_{i}")
 
     linha2 = st.columns([2, 2, 2])
     with linha2[0]:
-        categoria = st.selectbox("Categoria", [
+        categoria = st.selectbox("Categoria*", [
             "Power BI", "Excel", "Report e-mail", "Power Point",
             "Python", "Outra"
         ], key=f"categoria_{i}")
     with linha2[1]:
-        importancia = st.selectbox("Importância", [
+        importancia = st.selectbox("Importância*", [
             "💎 Muito Importante", "🪙 Importante", "🟢 Pouco Importante", "🟠 Não Importante"
         ], key=f"importancia_{i}")
     with linha2[2]:
-        horas = st.number_input("Horas gastas mensais", min_value=0.0, step=1.0, key=f"horas_{i}")
+        horas = st.number_input("Horas gastas mensais*", min_value=0.0, step=1.0, key=f"horas_{i}")
 
     if nome.strip():
-        ferramentas.append(f"{nome}:{objetivo},{categoria},{importancia},{horas}")
+        ferramentas.append(f"{nome},{objetivo},{categoria},{importancia},{horas}")
         ferramentas_resumo.append({
             "Nome": nome,
             "Objetivo": objetivo,
