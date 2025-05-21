@@ -19,6 +19,9 @@ def mostrar_guia_lateral():
         st.markdown("### 5️⃣ Clique em 'Salvar e Enviar Resposta'")
         st.caption("Você verá um resumo com tudo o que foi preenchido.")
 
+        st.markdown("### 6️⃣🚨 Faça upload das ferramentas na pasta")
+        st.caption("O link da pasta está no botão 'Clique aqui' logo abaixo de 'Salvar e Enviar Resposta'")
+
         st.markdown("### ✅ Obrigado pela sua contribuição!")
         st.caption("Sua resposta ajuda a mapear o uso de ferramentas e painéis na equipe de Planejamento Operacional.")
 
