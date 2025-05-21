@@ -8,7 +8,6 @@ import io
 from datetime import datetime
 from guia_lateral import mostrar_guia_lateral
 
-
 # Configuração da página
 st.set_page_config(
     page_title="Levantamento de Ferramentas e Painéis PBI",
@@ -60,10 +59,13 @@ def salvar_planilha_no_github(df, sha):
 
 # ========= FORMULÁRIO =========
 st.title("Pesquisa: Ferramentas e Painéis utilizados pela Equipe de Planejamento Operacional")
-st.markdown("Preencha as informações abaixo sobre os painéis e ferramentas que você utiliza no seu dia a dia.")
+st.markdown(
+    "Preencha as informações abaixo sobre os painéis e ferramentas que você utiliza no seu dia a dia.  \n"
+    "Legenda: * Campos de preenchimento obrigatório."
+)
 
 st.subheader("👤 Identificação do usuário:")
-email = st.text_input("Seu e-mail MRV (@mrv.com.br)*:")
+email = st.text_input("Digite seu e-mail MRV (@mrv.com.br)*:")
 
 # === PAINÉIS USADOS E FEEDBACKS ===
 st.subheader("📊 Quais painéis abaixo você utiliza?")
@@ -74,7 +76,7 @@ paineis_lista = [
     "Painel Produção Produtividade e MO - PLNESROBR005",
     "PAP - Dossiê"
 ]
-paineis_usados = st.multiselect("Selecione todos os painéis que você utiliza:*", paineis_lista)
+paineis_usados = st.multiselect("Selecione todos os painéis que você utiliza:* (Selecionar)", paineis_lista)
 
 st.subheader("Deseja comentar sobre algum desses painéis?")
 if "feedback_count" not in st.session_state:
@@ -103,32 +105,42 @@ if "ferramenta_count" not in st.session_state:
 ferramentas = []
 ferramentas_resumo = []
 
+categoria_lista = [
+    "AUXÍLIO REGIONAL", "AMP X PLS", "DISCREPÂNCIA", "PROJECT",
+    "ESTOQUE", "MOP/EMP", "CUSTOS", "REPLAN", "TURNOVER",
+    "SEQUENCIAMENTO MO", "PRODUTIVIDADE", "HORAS EXTRAS", "OUTROS"
+]
+
 for i in range(st.session_state.ferramenta_count):
     st.markdown(f"---\n### Ferramenta {i+1}")
     linha1 = st.columns([3, 3])
     with linha1[0]:
-        nome = st.text_input("Nome da Ferramenta*", key=f"nome_{i}")
+        nome = st.text_input("Nome da Ferramenta* (Digitar)", key=f"nome_{i}")
     with linha1[1]:
-        objetivo = st.text_input("Objetivo*", key=f"objetivo_{i}")
+        objetivo = st.text_input("Objetivo* (Digitar)", key=f"objetivo_{i}")
 
-    linha2 = st.columns([2, 2, 2])
+    linha2 = st.columns([2, 2, 2, 2])
     with linha2[0]:
-        categoria = st.selectbox("Categoria*", [
+        tipo = st.selectbox("Tipo* (Selecionar)", [
             "Power BI", "Excel", "Report e-mail", "Power Point",
             "Python", "Outra"
-        ], key=f"categoria_{i}")
-    with linha2[1]:
-        importancia = st.selectbox("Importância*", [
+        ], key=f"tipo_{i}")
+    with linha2[2]:
+        importancia = st.selectbox("Importância* (Selecionar)", [
             "💎 Muito Importante", "🪙 Importante", "🟢 Pouco Importante", "🟠 Não Importante"
         ], key=f"importancia_{i}")
-    with linha2[2]:
-        horas = st.number_input("Horas gastas mensais*", min_value=0.0, step=1.0, key=f"horas_{i}")
+    with linha2[3]:
+        horas = st.number_input("Horas gastas mensais* (Selecionar)", min_value=0.0, step=1.0, key=f"horas_{i}")
+
+    with linha2[1]:
+        categoria = st.selectbox("Categoria* (Selecionar)", categoria_lista, key=f"categoria_{i}")
 
     if nome.strip():
-        ferramentas.append(f"{nome},{objetivo},{categoria},{importancia},{horas}")
+        ferramentas.append(f"{nome},{objetivo},{tipo},{categoria},{importancia},{horas}")
         ferramentas_resumo.append({
             "Nome": nome,
             "Objetivo": objetivo,
+            "Tipo": tipo,
             "Categoria": categoria,
             "Importância": importancia,
             "Horas": horas
@@ -138,7 +150,7 @@ if st.button("Adicionar nova Ferramenta"):
     st.session_state.ferramenta_count += 1
     st.rerun()
 
-# === ENVIO E SALVAMENTO ===
+## === ENVIO E SALVAMENTO ===
 if st.button("Salvar e Enviar Resposta"):
     erros = []
     if not email:
@@ -151,8 +163,6 @@ if st.button("Salvar e Enviar Resposta"):
     else:
         nova_resposta = {
             "E-mail MRV": email,
-            "Categoria": "",
-            "Impacto": "",
             "Data/Hora do Envio": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "Painéis": "; ".join([f"{k}: {v}" for k, v in feedbacks.items()]),
             "Ferramentas": "; ".join(ferramentas)
@@ -168,6 +178,7 @@ if st.button("Salvar e Enviar Resposta"):
                 sucesso = salvar_planilha_no_github(df_total, sha)
                 if sucesso:
                     st.success("✅ Resposta salva com sucesso. Agradecemos por sua contribuição!")
+                    st.info("Gentileza, faça upload das ferramentas que você citou na pasta: link da pasta: https://mrvengenhariasa.sharepoint.com/:f:/s/PlanejamentoEstratgicodeObra/EqCtBFyFlLhKuW3NbOqI4KEB8YLkiAUnAt7XtTX6ve3FJA?e=TI40We")
                     with st.expander("🔍 Ver resumo do que foi enviado"):
                         st.markdown(f"**Email:** {email}")
                         st.markdown("**Painéis selecionados:**")
@@ -177,7 +188,8 @@ if st.button("Salvar e Enviar Resposta"):
                             st.markdown(f"- {painel}: {comentario}")
                         st.markdown("**Ferramentas preenchidas:**")
                         for idx, f in enumerate(ferramentas_resumo, 1):
-                            st.markdown(f"{idx}. {f['Nome']} - {f['Objetivo']} ({f['Categoria']}) • {f['Importância']} • {f['Horas']}h/mês")
+                            st.markdown(f"{idx}. {f['Nome']} - {f['Objetivo']} ({f['Tipo']}/{f['Categoria']}) • {f['Importância']} • {f['Horas']}h/mês")
+                    st.markdown("**Obrigado!**")
                     st.session_state.feedback_count = 1
                     st.session_state.ferramenta_count = 1
                 else:
