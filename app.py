@@ -117,7 +117,7 @@ ferramentas_resumo = []  # Lista para armazenar as ferramentas como dicionário
 
 # Lista de categorias para seleção
 categoria_lista = [
-    "AUXÍLIO REGIONAL", "AMP X PLS", "DISCREPÂNCIA", "PROJECT", "SAP BO + Excel", "BIG + Excel",
+    "AUXÍLIO REGIONAL", "AMP X PLS", "DISCREPÂNCIA", "PROJECT",
     "ESTOQUE", "MOP/EMP", "CUSTOS", "REPLAN", "TURNOVER",
     "SEQUENCIAMENTO MO", "PRODUTIVIDADE", "HORAS EXTRAS", "OUTROS"
 ]
@@ -135,7 +135,7 @@ for i in range(st.session_state.ferramenta_count):
     with linha2[0]:
         tipo = st.selectbox("Tipo* (Selecionar)", [
             "Power BI", "Excel", "Report e-mail", "Power Point",
-            "Python", "Outra"
+            "Python","SAP BO + Excel", "BIG + Excel", "Outra"
         ], key=f"tipo_{i}")
     with linha2[2]:
         importancia = st.selectbox("Importância* (Selecionar)", [
