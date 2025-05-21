@@ -82,29 +82,62 @@ email = st.text_input("Digite seu e-mail MRV (@mrv.com.br)*:")
 # =========================== PAINÉIS USADOS E FEEDBACKS ===========================
 
 st.subheader("📊 Quais painéis abaixo você utiliza?")
+
 paineis_lista = [
     "Painel Análises Forecast de Produção - PLNESROBR009",
     "Painel do Portifólio - Planejamento da Produção - PLNESROBR004",
     "Painel Operações - Planejamento e Controle - PLNESROBR010",
     "Painel Produção Produtividade e MO - PLNESROBR005",
-    "PAP - Dossiê"
+    "PAP - Dossiê",
+    "Painel AMP x PLS - CST002", 
+    "Painel Acompanhamento de Concreto - ENGPDC032",
+    "Painel Book Normas - ENGPDC018", 
+    "Painel Cheque Obra - ENGPDC015",
+    "Painel Cockpit Produção - ENGPDC010", 
+    "Painel Comunicação Integrada - ENGPDC028",
+    "Painel Custos Produção - ENGPDC009", 
+    "Painel de Materiais - ENGPDC005",
+    "Painel Gestão de Acesso Obras - ENGPDC011", 
+    "Painel Obra 360 - ENGPDC035",
+    "Painel Performance da Produção - ENGPDC029", 
+    "Painel Qualidade - ENGPDC007",
+    "Painel SSMA Regionais - ENGPDC030", 
+    "Relatório de Métricas de Preços e Serviços - ENGPDC004"
 ]
 
 # Multiselect para selecionar painéis utilizados
 paineis_usados = st.multiselect("Selecione todos os painéis que você utiliza:* (Selecionar)", paineis_lista)
 
 # Seção de feedback sobre painéis
-st.subheader("Deseja comentar sobre algum desses painéis?")
+st.subheader("Avalie os painéis selecionados e deixe seu feedback:")
 
-feedbacks = {}  # Dicionário para armazenar os feedbacks
+feedbacks = {}  # Dicionário para armazenar os feedbacks e avaliações
 
-# Para cada painel selecionado, gera um campo de comentário
+# Para cada painel selecionado, gera um subtítulo, um campo de comentário e uma nota
 for painel in paineis_usados:
-    comentario = st.text_area(
-        f"Comentário sobre {painel}",
-        placeholder="Opcional: escreva seu comentário ou deixe em branco."
-    )
-    feedbacks[painel] = comentario
+    st.markdown(f"##### {painel}")  # Subtítulo para o painel
+
+    cols = st.columns([1, 3])  # Comentário ocupa mais espaço, nota menos
+
+    with cols[0]:
+        nota = st.number_input(
+            label="Nota (0-10)*",
+            min_value=0,
+            max_value=10,
+            step=1,
+            key=f"nota_{painel}"
+        )
+
+    with cols[1]:
+        comentario = st.text_area(
+            label="Comentário (opcional)",
+            placeholder="Opcional: escreva seu comentário ou deixe em branco.",
+            key=f"comentario_{painel}"
+        )
+
+    # Armazena como dicionário: {comentario: ..., nota: ...}
+    feedbacks[painel] = {"comentario": comentario, "nota": nota}
+
 
 # =========================== FERRAMENTAS ===========================
 
@@ -170,21 +203,20 @@ if st.button("Salvar e Enviar Resposta"):
 
     # Validação de campos obrigatórios por ferramenta
     for idx, f in enumerate(ferramentas_resumo, 1):
-        if not f["Nome"]:
+        if not f["Nome"] or not str(f["Nome"]).strip():
             erros.append(f"- Nome da Ferramenta {idx} não preenchido")
-        if not f["Objetivo"]:
+        if not f["Objetivo"] or not str(f["Objetivo"]).strip():
             erros.append(f"- Objetivo da Ferramenta {idx} não preenchido")
-        if not f["Tipo"]:
+        if not f["Tipo"] or f["Tipo"] == "Selecione":
             erros.append(f"- Tipo da Ferramenta {idx} não selecionado")
-        if not f["Categoria"]:
+        if not f["Categoria"] or f["Categoria"] == "Selecione":
             erros.append(f"- Categoria da Ferramenta {idx} não selecionada")
-        if not f["Importância"]:
+        if not f["Importância"] or f["Importância"] == "Selecione":
             erros.append(f"- Importância da Ferramenta {idx} não selecionada")
-        if f["Horas"] is None or f["Horas"] == 0:
+        if f["Horas"] is None or f["Horas"] == "" or f["Horas"] == 0:
             erros.append(f"- Horas gastas da Ferramenta {idx} não preenchidas ou igual a 0")
-
-    if erros:
-        st.error("Por favor, corrija os seguintes campos:\n" + "\n".join(erros))
+        if erros:
+            st.error("Por favor, corrija os seguintes campos:\n" + "\n".join(erros))
     else:
         # Monta a nova resposta como dicionário
         nova_resposta = {
