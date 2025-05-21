@@ -113,13 +113,17 @@ st.subheader("Avalie os painéis selecionados e deixe seu feedback:")
 
 feedbacks = {}  # Dicionário para armazenar os feedbacks e avaliações
 
-# Para cada painel selecionado, gera um subtítulo, um campo de comentário e uma nota
+# Para cada painel selecionado, gera uma linha com: nome, nota, comentário
 for painel in paineis_usados:
-    st.markdown(f"##### {painel}")  # Subtítulo para o painel
-
-    cols = st.columns([1, 3])  # Comentário ocupa mais espaço, nota menos
+    cols = st.columns([2, 1, 3])  # Dimensionar tamanho: Nome do painel | Nota | Comentário
 
     with cols[0]:
+        st.markdown(
+            f"<span style='font-size:14px;'>{painel}</span>", 
+            unsafe_allow_html=True
+        )
+
+    with cols[1]:
         nota = st.number_input(
             label="Nota (0-10)*",
             min_value=0,
@@ -128,10 +132,10 @@ for painel in paineis_usados:
             key=f"nota_{painel}"
         )
 
-    with cols[1]:
-        comentario = st.text_area(
+    with cols[2]:
+        comentario = st.text_input(
             label="Comentário (opcional)",
-            placeholder="Opcional: escreva seu comentário ou deixe em branco.",
+            placeholder="Escreva ou deixe em branco",
             key=f"comentario_{painel}"
         )
 
