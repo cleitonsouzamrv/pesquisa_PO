@@ -1,39 +1,47 @@
-import streamlit as st
-import pandas as pd
-from PIL import Image
-import base64
-import json
-import requests
-import io
-from datetime import datetime
-from guia_lateral import mostrar_guia_lateral
+# Importação de bibliotecas necessárias
+import streamlit as st  # Framework principal para criação da interface web
+import pandas as pd  # Manipulação de dados
+from PIL import Image  # Manipulação de imagens
+import base64  # Codificação/decodificação base64 (para comunicação com GitHub)
+import json  # Manipulação de objetos JSON
+import requests  # Realização de requisições HTTP
+import io  # Manipulação de fluxos de dados binários
+from datetime import datetime  # Manipulação de datas e horários
+from guia_lateral import mostrar_guia_lateral  # Função personalizada para mostrar guia lateral
 
-# Configuração da página
+# =========================== CONFIGURAÇÃO DA PÁGINA ===========================
+
+# Definição das configurações da página web no Streamlit
 st.set_page_config(
-    page_title="Levantamento de Ferramentas e Painéis PBI",
+    page_title="Pesquisa: Ferramentas e Painéis",
     page_icon="logo_mrv_light.png",
     layout="wide"
 )
 
+# Configuração da barra lateral
 with st.sidebar:
-    logo = Image.open("logo_mrv_light.png")
-    st.image(logo, width=240)
+    logo = Image.open("logo_mrv_light.png")  # Carrega a imagem do logo
+    st.image(logo, width=240)  # Exibe o logo na barra lateral
     st.title("Planejamento Operacional")
-    st.markdown("### 📝 Levantamento de Ferramentas e Painéis")
-    mostrar_guia_lateral()
+    st.markdown("## 📝 Levantamento de Ferramentas e Painéis")
+    mostrar_guia_lateral()  # Exibe a guia lateral personalizada
 
-# GitHub config
+# =========================== CONFIGURAÇÃO DO GITHUB ===========================
+
+# Credenciais e informações do repositório GitHub via secrets
 GITHUB_TOKEN = st.secrets["github"]["token"]
 GITHUB_USERNAME = st.secrets["github"]["username"]
 REPO_NAME = st.secrets["github"]["repo"]
 FILE_PATH = st.secrets["github"]["file_path"]
 BRANCH = st.secrets["github"]["branch"]
 
+# Cabeçalho de autenticação para requisições à API do GitHub
 headers = {
     "Authorization": f"token {GITHUB_TOKEN}",
     "Accept": "application/vnd.github.v3+json"
 }
 
+# Função para carregar a planilha existente no repositório do GitHub
 def carregar_planilha_do_github():
     url = f"https://api.github.com/repos/{GITHUB_USERNAME}/{REPO_NAME}/contents/{FILE_PATH}?ref={BRANCH}"
     r = requests.get(url, headers=headers)
@@ -43,6 +51,7 @@ def carregar_planilha_do_github():
     else:
         return pd.DataFrame(), None
 
+# Função para salvar a planilha atualizada de volta ao GitHub
 def salvar_planilha_no_github(df, sha):
     output = io.BytesIO()
     df.to_excel(output, index=False)
@@ -57,17 +66,21 @@ def salvar_planilha_no_github(df, sha):
     response = requests.put(url, headers=headers, data=json.dumps(data))
     return response.status_code in [200, 201]
 
-# ========= FORMULÁRIO =========
+# =========================== FORMULÁRIO PRINCIPAL ===========================
+
+# Título e instruções
 st.title("Pesquisa: Ferramentas e Painéis utilizados pela Equipe de Planejamento Operacional")
 st.markdown(
     "Preencha as informações abaixo sobre os painéis e ferramentas que você utiliza no seu dia a dia.  \n"
     "Legenda: * Campos de preenchimento obrigatório."
 )
 
+# Campo de identificação do usuário
 st.subheader("👤 Identificação do usuário:")
 email = st.text_input("Digite seu e-mail MRV (@mrv.com.br)*:")
 
-# === PAINÉIS USADOS E FEEDBACKS ===
+# =========================== PAINÉIS USADOS E FEEDBACKS ===========================
+
 st.subheader("📊 Quais painéis abaixo você utiliza?")
 paineis_lista = [
     "Painel Análises Forecast de Produção - PLNESROBR009",
@@ -76,13 +89,18 @@ paineis_lista = [
     "Painel Produção Produtividade e MO - PLNESROBR005",
     "PAP - Dossiê"
 ]
+
+# Multiselect para selecionar painéis utilizados
 paineis_usados = st.multiselect("Selecione todos os painéis que você utiliza:* (Selecionar)", paineis_lista)
 
+# Seção de feedback sobre painéis
 st.subheader("Deseja comentar sobre algum desses painéis?")
 if "feedback_count" not in st.session_state:
-    st.session_state.feedback_count = 1
+    st.session_state.feedback_count = 1  # Inicializa o contador de feedbacks
 
-feedbacks = {}
+feedbacks = {}  # Dicionário para armazenar os feedbacks
+
+# Loop para criar campos de feedback dinâmicos
 for i in range(st.session_state.feedback_count):
     cols = st.columns([2, 5])
     with cols[0]:
@@ -93,24 +111,28 @@ for i in range(st.session_state.feedback_count):
             if painel and feedback:
                 feedbacks[painel] = feedback
 
+# Botão para adicionar novos campos de feedback
 if st.button("Adicionar outro feedback"):
     st.session_state.feedback_count += 1
     st.rerun()
 
-# === FERRAMENTAS ===
+# =========================== FERRAMENTAS ===========================
+
 st.subheader("🔧 Ferramentas que você utiliza")
 if "ferramenta_count" not in st.session_state:
-    st.session_state.ferramenta_count = 1
+    st.session_state.ferramenta_count = 1  # Inicializa o contador de ferramentas
 
-ferramentas = []
-ferramentas_resumo = []
+ferramentas = []  # Lista para armazenar as ferramentas como texto
+ferramentas_resumo = []  # Lista para armazenar as ferramentas como dicionário
 
+# Lista de categorias para seleção
 categoria_lista = [
     "AUXÍLIO REGIONAL", "AMP X PLS", "DISCREPÂNCIA", "PROJECT",
     "ESTOQUE", "MOP/EMP", "CUSTOS", "REPLAN", "TURNOVER",
     "SEQUENCIAMENTO MO", "PRODUTIVIDADE", "HORAS EXTRAS", "OUTROS"
 ]
 
+# Loop para criar campos dinâmicos de ferramentas
 for i in range(st.session_state.ferramenta_count):
     st.markdown(f"---\n### Ferramenta {i+1}")
     linha1 = st.columns([3, 3])
@@ -131,10 +153,10 @@ for i in range(st.session_state.ferramenta_count):
         ], key=f"importancia_{i}")
     with linha2[3]:
         horas = st.number_input("Horas gastas mensais* (Selecionar)", min_value=0.0, step=1.0, key=f"horas_{i}")
-
     with linha2[1]:
         categoria = st.selectbox("Categoria* (Selecionar)", categoria_lista, key=f"categoria_{i}")
 
+    # Armazena a ferramenta preenchida
     if nome.strip():
         ferramentas.append(f"{nome},{objetivo},{tipo},{categoria},{importancia},{horas}")
         ferramentas_resumo.append({
@@ -146,13 +168,17 @@ for i in range(st.session_state.ferramenta_count):
             "Horas": horas
         })
 
+# Botão para adicionar nova ferramenta
 if st.button("Adicionar nova Ferramenta"):
     st.session_state.ferramenta_count += 1
     st.rerun()
 
-## === ENVIO E SALVAMENTO ===
+# =========================== ENVIO E SALVAMENTO ===========================
+
 if st.button("Salvar e Enviar Resposta"):
     erros = []
+
+    # Validação dos campos obrigatórios
     if not email:
         erros.append("- E-mail MRV")
     if not ferramentas:
@@ -161,6 +187,7 @@ if st.button("Salvar e Enviar Resposta"):
     if erros:
         st.error("Por favor, corrija os seguintes campos:\n" + "\n".join(erros))
     else:
+        # Monta a nova resposta como dicionário
         nova_resposta = {
             "E-mail MRV": email,
             "Data/Hora do Envio": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -169,22 +196,28 @@ if st.button("Salvar e Enviar Resposta"):
         }
 
         df_novo = pd.DataFrame([nova_resposta])
+
         with st.spinner("Salvando resposta..."):
             df_existente, sha = carregar_planilha_do_github()
+
             if sha is None:
                 st.error("❌ Não foi possível carregar a planilha do GitHub.")
             else:
+                # Concatena a nova resposta ao DataFrame existente
                 df_total = pd.concat([df_existente, df_novo], ignore_index=True)
                 sucesso = salvar_planilha_no_github(df_total, sha)
+
                 if sucesso:
                     st.success("✅ Resposta salva com sucesso. Agradecemos por sua contribuição!")
+
+                    # Mensagem informativa com link clicável e destaque
                     st.markdown(
                         "<h3>ℹ️ Gentileza, na pasta abaixo, faça o upload das ferramentas que você citou:<br>"
                         "link da pasta: <a href='https://mrvengenhariasa.sharepoint.com/:f:/s/PlanejamentoEstratgicodeObra/EqCtBFyFlLhKuW3NbOqI4KEB8YLkiAUnAt7XtTX6ve3FJA?e=TI40We' target='_blank'>Clique aqui</a></h3>",
                         unsafe_allow_html=True
                     )
 
-
+                    # Resumo do que foi enviado
                     with st.expander("🔍 Ver resumo do que foi enviado"):
                         st.markdown(f"**Email:** {email}")
                         st.markdown("**Painéis selecionados:**")
@@ -194,8 +227,13 @@ if st.button("Salvar e Enviar Resposta"):
                             st.markdown(f"- {painel}: {comentario}")
                         st.markdown("**Ferramentas preenchidas:**")
                         for idx, f in enumerate(ferramentas_resumo, 1):
-                            st.markdown(f"{idx}. {f['Nome']} - {f['Objetivo']} ({f['Tipo']}/{f['Categoria']}) • {f['Importância']} • {f['Horas']}h/mês")
+                            st.markdown(
+                                f"{idx}. {f['Nome']} - {f['Objetivo']} ({f['Tipo']}/{f['Categoria']}) • {f['Importância']} • {f['Horas']}h/mês"
+                            )
+
                     st.markdown("**Obrigado!**")
+
+                    # Reset dos contadores de feedback e ferramentas
                     st.session_state.feedback_count = 1
                     st.session_state.ferramenta_count = 1
                 else:

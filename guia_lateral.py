@@ -1,7 +1,7 @@
 import streamlit as st
 
 def mostrar_guia_lateral():
-    st.markdown("## 🧭 Guia de Preenchimento")
+    st.markdown("### 🧭 Guia de Preenchimento")
 
     with st.container():
         st.markdown("### 1️⃣ Preencha seu e-mail")
