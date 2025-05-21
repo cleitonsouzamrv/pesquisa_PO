@@ -178,7 +178,12 @@ if st.button("Salvar e Enviar Resposta"):
                 sucesso = salvar_planilha_no_github(df_total, sha)
                 if sucesso:
                     st.success("✅ Resposta salva com sucesso. Agradecemos por sua contribuição!")
-                    st.info("Gentileza, faça upload das ferramentas que você citou na pasta: link da pasta: https://mrvengenhariasa.sharepoint.com/:f:/s/PlanejamentoEstratgicodeObra/EqCtBFyFlLhKuW3NbOqI4KEB8YLkiAUnAt7XtTX6ve3FJA?e=TI40We")
+                    st.markdown(
+                        "ℹ️ Gentileza, na pasta abaixo, faça o upload das ferramentas que você citou:<br>"
+                        "link da pasta: [Clique aqui](https://mrvengenhariasa.sharepoint.com/:f:/s/PlanejamentoEstratgicodeObra/EqCtBFyFlLhKuW3NbOqI4KEB8YLkiAUnAt7XtTX6ve3FJA?e=TI40We)",
+                        unsafe_allow_html=True
+                    )
+
                     with st.expander("🔍 Ver resumo do que foi enviado"):
                         st.markdown(f"**Email:** {email}")
                         st.markdown("**Painéis selecionados:**")
