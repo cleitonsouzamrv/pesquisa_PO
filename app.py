@@ -95,26 +95,16 @@ paineis_usados = st.multiselect("Selecione todos os painéis que você utiliza:*
 
 # Seção de feedback sobre painéis
 st.subheader("Deseja comentar sobre algum desses painéis?")
-if "feedback_count" not in st.session_state:
-    st.session_state.feedback_count = 1  # Inicializa o contador de feedbacks
 
 feedbacks = {}  # Dicionário para armazenar os feedbacks
 
-# Loop para criar campos de feedback dinâmicos
-for i in range(st.session_state.feedback_count):
-    cols = st.columns([2, 5])
-    with cols[0]:
-        painel = st.selectbox(f"Painel {i+1}", options=[""] + paineis_usados, key=f"painel_select_{i}")
-    with cols[1]:
-        if painel:
-            feedback = st.text_area("Comentário", key=f"feedback_text_{i}")
-            if painel and feedback:
-                feedbacks[painel] = feedback
-
-# Botão para adicionar novos campos de feedback
-if st.button("Adicionar outro feedback"):
-    st.session_state.feedback_count += 1
-    st.rerun()
+# Para cada painel selecionado, gera um campo de comentário
+for painel in paineis_usados:
+    comentario = st.text_area(
+        f"Comentário sobre {painel}",
+        placeholder="Opcional: escreva seu comentário ou deixe em branco."
+    )
+    feedbacks[painel] = comentario
 
 # =========================== FERRAMENTAS ===========================
 
@@ -127,7 +117,7 @@ ferramentas_resumo = []  # Lista para armazenar as ferramentas como dicionário
 
 # Lista de categorias para seleção
 categoria_lista = [
-    "AUXÍLIO REGIONAL", "AMP X PLS", "DISCREPÂNCIA", "PROJECT",
+    "AUXÍLIO REGIONAL", "AMP X PLS", "DISCREPÂNCIA", "PROJECT", "SAP BO + Excel", "BIG + Excel",
     "ESTOQUE", "MOP/EMP", "CUSTOS", "REPLAN", "TURNOVER",
     "SEQUENCIAMENTO MO", "PRODUTIVIDADE", "HORAS EXTRAS", "OUTROS"
 ]
@@ -178,11 +168,20 @@ if st.button("Adicionar nova Ferramenta"):
 if st.button("Salvar e Enviar Resposta"):
     erros = []
 
-    # Validação dos campos obrigatórios
-    if not email:
-        erros.append("- E-mail MRV")
-    if not ferramentas:
-        erros.append("- Pelo menos uma ferramenta deve ser preenchida")
+    # Validação de campos obrigatórios por ferramenta
+    for idx, f in enumerate(ferramentas_resumo, 1):
+        if not f["Nome"]:
+            erros.append(f"- Nome da Ferramenta {idx} não preenchido")
+        if not f["Objetivo"]:
+            erros.append(f"- Objetivo da Ferramenta {idx} não preenchido")
+        if not f["Tipo"]:
+            erros.append(f"- Tipo da Ferramenta {idx} não selecionado")
+        if not f["Categoria"]:
+            erros.append(f"- Categoria da Ferramenta {idx} não selecionada")
+        if not f["Importância"]:
+            erros.append(f"- Importância da Ferramenta {idx} não selecionada")
+        if f["Horas"] is None or f["Horas"] == 0:
+            erros.append(f"- Horas gastas da Ferramenta {idx} não preenchidas ou igual a 0")
 
     if erros:
         st.error("Por favor, corrija os seguintes campos:\n" + "\n".join(erros))
@@ -238,3 +237,4 @@ if st.button("Salvar e Enviar Resposta"):
                     st.session_state.ferramenta_count = 1
                 else:
                     st.error("❌ Erro ao salvar a resposta no GitHub.")
+
