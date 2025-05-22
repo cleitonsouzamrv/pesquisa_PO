@@ -219,7 +219,7 @@ if st.button("➕ Adicionar nova Ferramenta"):
 
 # =========================== ENVIO E SALVAMENTO ===========================
 
-if st.button("Salvar e Enviar Resposta"):
+if st.button("💾 Salvar e Enviar Resposta"):
     erros = []
 
     # Validação de campos obrigatórios por ferramenta
