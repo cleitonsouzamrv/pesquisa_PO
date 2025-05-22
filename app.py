@@ -200,6 +200,7 @@ if st.button("Adicionar nova Ferramenta"):
     st.session_state.ferramenta_count += 1
     st.rerun()
 
+
 # =========================== ENVIO E SALVAMENTO ===========================
 
 if st.button("Salvar e Enviar Resposta"):
@@ -267,7 +268,22 @@ if st.button("Salvar e Enviar Resposta"):
 
                     st.markdown("**Obrigado!**")
 
-                    st.session_state.feedback_count = 1
+                    # Reset das variáveis para reiniciar o formulário
                     st.session_state.ferramenta_count = 1
+
+                    for i in range(0, 100):
+                        st.session_state.pop(f"nome_{i}", None)
+                        st.session_state.pop(f"objetivo_{i}", None)
+                        st.session_state.pop(f"tipo_{i}", None)
+                        st.session_state.pop(f"categoria_{i}", None)
+                        st.session_state.pop(f"importancia_{i}", None)
+                        st.session_state.pop(f"horas_{i}", None)
+
+                    for painel in paineis_lista:
+                        st.session_state.pop(f"nota_{painel}", None)
+                        st.session_state.pop(f"comentario_{painel}", None)
+
+                    st.experimental_rerun()
+
                 else:
                     st.error("❌ Erro ao salvar a resposta no GitHub.")
