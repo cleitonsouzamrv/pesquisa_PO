@@ -301,6 +301,10 @@ if st.button("💾 Salvar e Enviar Resposta"):
                             st.session_state.pop(f"nota_{painel}", None)
                             st.session_state.pop(f"comentario_{painel}", None)
 
+                        # Também limpar e-mail se quiser:
+                        st.session_state.pop("email", None)
+
+                        # Forçar recarregamento com tudo limpo
                         st.experimental_rerun()
 
                 else:
