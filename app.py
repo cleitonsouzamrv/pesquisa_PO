@@ -159,9 +159,13 @@ categoria_lista = [
     "SEQUENCIAMENTO MO", "PRODUTIVIDADE", "HORAS EXTRAS", "OUTROS"
 ]
 
+# Lista para armazenar índices que devem ser removidos
+remover_indices = []
+
 # Loop para criar campos dinâmicos de ferramentas
 for i in range(st.session_state.ferramenta_count):
     st.markdown(f"---\n### Ferramenta {i+1}")
+    
     linha1 = st.columns([3, 3])
     with linha1[0]:
         nome = st.text_input("Nome da Ferramenta* (Digitar)", key=f"nome_{i}")
@@ -172,7 +176,7 @@ for i in range(st.session_state.ferramenta_count):
     with linha2[0]:
         tipo = st.selectbox("Tipo* (Selecionar)", [
             "Power BI", "Excel", "Report e-mail", "Power Point",
-            "Python","SAP BO + Excel", "BIG + Excel", "Outra"
+            "Python", "SAP BO + Excel", "BIG + Excel", "Outra"
         ], key=f"tipo_{i}")
     with linha2[2]:
         importancia = st.selectbox("Importância* (Selecionar)", [
@@ -182,6 +186,10 @@ for i in range(st.session_state.ferramenta_count):
         horas = st.number_input("Horas gastas mensais* (Selecionar)", min_value=0.0, step=1.0, key=f"horas_{i}")
     with linha2[1]:
         categoria = st.selectbox("Categoria* (Selecionar)", categoria_lista, key=f"categoria_{i}")
+
+    # Botão de remoção para esta ferramenta
+    if st.button(f"Remover Ferramenta {i+1}"):
+        remover_indices.append(i)
 
     # Armazena a ferramenta preenchida
     if nome.strip():
@@ -194,6 +202,14 @@ for i in range(st.session_state.ferramenta_count):
             "Importância": importancia,
             "Horas": horas
         })
+
+# Remove as ferramentas marcadas
+if remover_indices:
+    for idx in sorted(remover_indices, reverse=True):
+        for key in ["nome_", "objetivo_", "tipo_", "categoria_", "importancia_", "horas_"]:
+            st.session_state.pop(f"{key}{idx}", None)
+    st.session_state.ferramenta_count -= len(remover_indices)
+    st.rerun()
 
 # Botão para adicionar nova ferramenta
 if st.button("Adicionar nova Ferramenta"):
