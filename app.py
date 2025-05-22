@@ -219,8 +219,10 @@ if st.button("Salvar e Enviar Resposta"):
             erros.append(f"- Importância da Ferramenta {idx} não selecionada")
         if f["Horas"] is None or f["Horas"] == "" or f["Horas"] == 0:
             erros.append(f"- Horas gastas da Ferramenta {idx} não preenchidas ou igual a 0")
-        if erros:
-            st.error("Por favor, corrija os seguintes campos:\n" + "\n".join(erros))
+
+    # Exibe os erros e interrompe o fluxo
+    if erros:
+        st.error("Por favor, corrija os seguintes campos:\n" + "\n".join(erros))
     else:
         # Monta a nova resposta como dicionário
         nova_resposta = {
@@ -238,21 +240,18 @@ if st.button("Salvar e Enviar Resposta"):
             if sha is None:
                 st.error("❌ Não foi possível carregar a planilha do GitHub.")
             else:
-                # Concatena a nova resposta ao DataFrame existente
                 df_total = pd.concat([df_existente, df_novo], ignore_index=True)
                 sucesso = salvar_planilha_no_github(df_total, sha)
 
                 if sucesso:
                     st.success("✅ Resposta salva com sucesso. Agradecemos por sua contribuição!")
 
-                    # Mensagem informativa com link clicável e destaque
                     st.markdown(
                         "<h3>ℹ️ Gentileza, na pasta abaixo, faça o upload das ferramentas que você citou:<br>"
                         "link da pasta: <a href='https://mrvengenhariasa.sharepoint.com/:f:/s/PlanejamentoEstratgicodeObra/EqCtBFyFlLhKuW3NbOqI4KEB8YLkiAUnAt7XtTX6ve3FJA?e=TI40We' target='_blank'>Clique aqui</a></h3>",
                         unsafe_allow_html=True
                     )
 
-                    # Resumo do que foi enviado
                     with st.expander("🔍 Ver resumo do que foi enviado"):
                         st.markdown(f"**Email:** {email}")
                         st.markdown("**Painéis selecionados:**")
@@ -268,9 +267,7 @@ if st.button("Salvar e Enviar Resposta"):
 
                     st.markdown("**Obrigado!**")
 
-                    # Reset dos contadores de feedback e ferramentas
                     st.session_state.feedback_count = 1
                     st.session_state.ferramenta_count = 1
                 else:
                     st.error("❌ Erro ao salvar a resposta no GitHub.")
-
