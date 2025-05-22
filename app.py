@@ -188,7 +188,7 @@ for i in range(st.session_state.ferramenta_count):
         categoria = st.selectbox("Categoria* (Selecionar)", categoria_lista, key=f"categoria_{i}")
 
     # Botão de remoção para esta ferramenta
-    if st.button(f"Remover Ferramenta {i+1}"):
+    if st.button(f"🗑️ Remover Ferramenta {i+1}"):
         remover_indices.append(i)
 
     # Armazena a ferramenta preenchida
@@ -212,7 +212,7 @@ if remover_indices:
     st.rerun()
 
 # Botão para adicionar nova ferramenta
-if st.button("Adicionar nova Ferramenta"):
+if st.button("➕ Adicionar nova Ferramenta"):
     st.session_state.ferramenta_count += 1
     st.rerun()
 
@@ -299,7 +299,9 @@ if st.button("Salvar e Enviar Resposta"):
                         st.session_state.pop(f"nota_{painel}", None)
                         st.session_state.pop(f"comentario_{painel}", None)
 
-                    st.experimental_rerun()
+                    # Marcar para reiniciar no final
+                    st.session_state['rerun'] = True
 
                 else:
                     st.error("❌ Erro ao salvar a resposta no GitHub.")
+
