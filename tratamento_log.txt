@@ -5,3 +5,6 @@
 2025-05-23 10:03:20.035932 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 309 registros
 2025-05-23 10:03:31.086397 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 309 registros
 2025-05-23 10:03:31.198940 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 309 registros
+2025-05-23 10:54:31.420424 - ERRO ao salvar a planilha tratada: [Errno 13] Permission denied: '.\\modelo_base_dados_tratada.xlsx'
+2025-05-23 10:56:12.990389 - ERRO ao salvar a planilha tratada: [Errno 13] Permission denied: '.\\modelo_base_dados_tratada.xlsx'
+2025-05-23 10:56:13.025646 - ERRO ao salvar a planilha tratada: [Errno 13] Permission denied: '.\\modelo_base_dados_tratada.xlsx'
