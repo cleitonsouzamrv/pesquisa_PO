@@ -24,4 +24,9 @@ def mostrar_guia_lateral():
 
         st.markdown("### ✅ Obrigado pela sua contribuição!")
         st.caption("Sua resposta ajuda a mapear o uso de ferramentas e painéis na equipe de Planejamento Operacional.")
+        if st.button("😎")
+            with st.dialog("Faça o curso de segurnaça da informação"):
+                st.write("Caio was here.")
+                if st.button("Fechar"):
+                    st.rerun()
 
