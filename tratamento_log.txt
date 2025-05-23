@@ -25,3 +25,153 @@
 2025-05-23 11:22:23.727764 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 331 registros
 2025-05-23 11:23:51.060536 - ERRO ao salvar a planilha tratada: [Errno 13] Permission denied: '.\\modelo_base_dados_tratada.xlsx'
 2025-05-23 11:23:51.086220 - ERRO ao salvar a planilha tratada: [Errno 13] Permission denied: '.\\modelo_base_dados_tratada.xlsx'
+2025-05-23 13:06:11.683888 - ERRO ao decodificar JSON: nan
+2025-05-23 13:06:11.685550 - ERRO ao decodificar JSON: nan
+2025-05-23 13:06:11.687014 - ERRO ao decodificar JSON: nan
+2025-05-23 13:06:11.688591 - ERRO ao decodificar JSON: nan
+2025-05-23 13:06:11.690338 - ERRO ao decodificar JSON: nan
+2025-05-23 13:06:11.692397 - ERRO ao decodificar JSON: nan
+2025-05-23 13:06:11.694296 - ERRO ao decodificar JSON: nan
+2025-05-23 13:06:11.696432 - ERRO ao decodificar JSON: nan
+2025-05-23 13:06:11.698690 - ERRO ao decodificar JSON: nan
+2025-05-23 13:06:11.700485 - ERRO ao decodificar JSON: nan
+2025-05-23 13:06:11.702339 - ERRO ao decodificar JSON: nan
+2025-05-23 13:06:11.704028 - ERRO ao decodificar JSON: nan
+2025-05-23 13:06:11.705894 - ERRO ao decodificar JSON: Controle de concretagem :Controlar quantidade e dias de concretagens da obra,Excel,💎 Muito Importante,6.0
+2025-05-23 13:06:11.707443 - ERRO ao decodificar JSON: Planilha de medição de EMP:Medição de Empreiteiros,Excel,🪙 Importante,4.0
+2025-05-23 13:06:11.709512 - ERRO ao decodificar JSON: PBI,Consultar dados,Power BI,💎 Muito Importante,3.0
+2025-05-23 13:06:11.711562 - ERRO ao decodificar JSON: Planilha de Médio Prazo (Replan),Acompanhamento das metas mensais do engenheiro,Excel,💎 Muito Importante,40.0
+2025-05-23 13:06:11.713570 - ERRO ao decodificar JSON: Planilha automatizada - teste,Objetivo 1,Excel,OUTROS,🪙 Importante,7.0
+2025-05-23 13:06:11.715410 - ERRO ao decodificar JSON: Ferramentas - Planejamento Operacional,Objetivo 2,Python,MOP/EMP,🟢 Pouco Importante,4.0
+2025-05-23 13:06:11.717423 - ERRO ao decodificar JSON: Planilha automatizada - teste 2,Objetivo 10,Excel,OUTROS,🟢 Pouco Importante,6.0
+2025-05-23 13:06:11.719375 - ERRO ao decodificar JSON: ghjghjghjg,,Power BI,AUXÍLIO REGIONAL,💎 Muito Importante,0.0
+2025-05-23 13:06:11.721009 - ERRO ao decodificar JSON: jjjjj,,Power BI,AUXÍLIO REGIONAL,💎 Muito Importante,0.0
+2025-05-23 13:06:11.722744 - ERRO ao decodificar JSON: ,,Power BI,AUXÍLIO REGIONAL,💎 Muito Importante,0.0
+2025-05-23 13:06:11.725087 - ERRO ao decodificar JSON: Seman,Se,Excel,PROJECT,💎 Muito Importante,1.0
+2025-05-23 13:06:11.727217 - ERRO ao decodificar JSON: Teste 2,Objetivo 2,Report e-mail,AUXÍLIO REGIONAL,💎 Muito Importante,1.0
+2025-05-23 13:06:11.729585 - ERRO ao decodificar JSON: sdasdasdasd,asdasdasd,SAP BO + Excel,OUTROS,🟢 Pouco Importante,3.0
+2025-05-23 13:06:11.731378 - ERRO ao decodificar JSON: ssss,ssss,Power BI,AUXÍLIO REGIONAL,💎 Muito Importante,1.0
+2025-05-23 13:06:11.733677 - ERRO ao decodificar JSON: Semanômetro,UP/VP semanal,Excel,OUTROS,💎 Muito Importante,5.0
+2025-05-23 13:06:11.735280 - ERRO ao decodificar JSON: Recruta Simples,Acompanhar contratação MO,Outra,MOP/EMP,💎 Muito Importante,50.0
+2025-05-23 13:06:11.737106 - ERRO ao decodificar JSON: ssss,sss,Power BI,AUXÍLIO REGIONAL,💎 Muito Importante,0.0
+2025-05-23 13:06:11.739047 - ERRO ao decodificar JSON: Semanômetro,UP/VP semanal,Excel,OUTROS,💎 Muito Importante,5.0
+2025-05-23 13:06:11.741124 - ERRO ao decodificar JSON: Ferramenta 1,DOIS,Power BI,AUXÍLIO REGIONAL,💎 Muito Importante,2.0
+2025-05-23 13:06:11.745362 - ERRO ao decodificar JSON: Ferramenta 2,Objetivo 2,SAP BO + Excel,MOP/EMP,💎 Muito Importante,2.0
+2025-05-23 13:06:11.749644 - ERRO ao decodificar JSON: Ferramenta 1,Teste1,SAP BO + Excel,OUTROS,💎 Muito Importante,4.0
+2025-05-23 13:06:11.752247 - ERRO ao decodificar JSON: Ferramenta 2,Teste2,Power BI,AUXÍLIO REGIONAL,💎 Muito Importante,0.0
+2025-05-23 13:06:11.754239 - ERRO ao decodificar JSON: Ferramenta 1,Teste1,SAP BO + Excel,OUTROS,💎 Muito Importante,4.0
+2025-05-23 13:06:11.756269 - ERRO ao decodificar JSON: Ferramenta 1,Teste1,SAP BO + Excel,OUTROS,💎 Muito Importante,4.0
+2025-05-23 13:06:11.758817 - ERRO ao decodificar JSON: Ferramenta 2,Teste2,Power BI,AUXÍLIO REGIONAL,💎 Muito Importante,0.0
+2025-05-23 13:06:11.762185 - ERRO ao decodificar JSON: Planilha automatizada,Automatizar,Power BI,AUXÍLIO REGIONAL,💎 Muito Importante,0.0
+2025-05-23 13:06:11.765342 - ERRO ao decodificar JSON: Planilha de medição de MOP,Objetivo 1,Excel,MOP/EMP,🪙 Importante,4.0
+2025-05-23 13:06:11.767659 - ERRO ao decodificar JSON: Planilha automatizada,Automatizar (objetivo),Power BI,AUXÍLIO REGIONAL,💎 Muito Importante,3.0
+2025-05-23 13:06:11.770110 - ERRO ao decodificar JSON: Planilha automatizada,Objetivo 1,BIG + Excel,AUXÍLIO REGIONAL,🪙 Importante,2.0
+2025-05-23 13:06:11.772258 - ERRO ao decodificar JSON: Planilha de medição de MOP,Objetivo 2,Power BI,AUXÍLIO REGIONAL,💎 Muito Importante,6.0
+2025-05-23 13:06:11.776408 - ERRO ao decodificar JSON: Planilha de medição de MOP,Obj 1,Power BI,AUXÍLIO REGIONAL,💎 Muito Importante,3.0
+2025-05-23 13:06:11.779500 - ERRO ao decodificar JSON: Planilha ,Obj3,Excel,AUXÍLIO REGIONAL,🟢 Pouco Importante,5.0
+2025-05-23 13:06:11.782892 - ERRO ao decodificar JSON: Planilha de medição de MOP,Obj 1,Power BI,AUXÍLIO REGIONAL,💎 Muito Importante,3.0
+2025-05-23 13:06:11.784826 - ERRO ao decodificar JSON: Planilha ,Obj3,Excel,AUXÍLIO REGIONAL,🟢 Pouco Importante,5.0
+2025-05-23 13:06:11.787260 - ERRO ao decodificar JSON: Planilha automatizada,Obj1,SAP BO + Excel,AMP X PLS,💎 Muito Importante,5.0
+2025-05-23 13:06:11.789580 - ERRO ao decodificar JSON: power BI,Pauta de custos,Power BI,CUSTOS,🪙 Importante,10.0
+2025-05-23 13:06:11.792362 - ERRO ao decodificar JSON: excel,Apontamento de AMP,Excel,AMP X PLS,💎 Muito Importante,5.0
+2025-05-23 13:06:11.795320 - ERRO ao decodificar JSON: Semanômetro Atividade,Olhar a evolução das up das atividades mensal,Excel,REPLAN,💎 Muito Importante,10.0
+2025-05-23 13:06:11.798098 - ERRO ao decodificar JSON: PROJECT,Planejamento.,Outra,SEQUENCIAMENTO MO,💎 Muito Importante,30.0
+2025-05-23 13:06:11.800034 - ERRO ao decodificar JSON: GESTOR DE LINHAS,Planejamento.,Power BI,SEQUENCIAMENTO MO,💎 Muito Importante,20.0
+2025-05-23 13:06:11.802334 - ERRO ao decodificar JSON: Histograma,Verificar necessidade de MO das obras,Excel,MOP/EMP,🟠 Não Importante,2.0
+2025-05-23 13:06:11.804491 - ERRO ao decodificar JSON: Fluxo de caixa,Acompanhar o gasto realizado X cheque previsto,Excel,AUXÍLIO REGIONAL,💎 Muito Importante,8.0
+2025-05-23 13:06:11.806567 - ERRO ao decodificar JSON: Confirmação do Realizado,Acompanhar % de atividades e VP realizadas em comparação ao previsto em replan.,Excel,REPLAN,💎 Muito Importante,8.0
+2025-05-23 13:06:11.808692 - ERRO ao decodificar JSON: MS Project,Ferramenta de planejamento de obra,Outra,PROJECT,💎 Muito Importante,20.0
+2025-05-23 13:06:11.812022 - ERRO ao decodificar JSON: Painel Hora Extra,Acompanhar número de horas extras por obra. Poderia incluir o custo estimado,Power BI,HORAS EXTRAS,🪙 Importante,1.0
+2025-05-23 13:06:11.815224 - ERRO ao decodificar JSON: Painel Extração Orçamento Vivo,Retirar base de dados para preenchimento da planilha de acompanhamento de fluxo de caixa das obras,Power BI,AUXÍLIO REGIONAL,💎 Muito Importante,4.0
+2025-05-23 13:06:11.817561 - ERRO ao decodificar JSON: Painel Mão de Obra rateio,Conferir valores rateados nas obras,Power BI,CUSTOS,💎 Muito Importante,4.0
+2025-05-23 13:06:11.819624 - ERRO ao decodificar JSON: Retomada Meta,Verificar a variação da projeção nível PEP, considerando variação de estoque por PEP,Power BI,AUXÍLIO REGIONAL,💎 Muito Importante,20.0
+2025-05-23 13:06:11.821375 - ERRO ao decodificar JSON: Painel ENTE,Acompanhar pendências para ENTE obra,Power BI,AUXÍLIO REGIONAL,💎 Muito Importante,1.0
+2025-05-23 13:06:11.823525 - ERRO ao decodificar JSON: Acompanhamento Semanal das atividades,Utilizo o project para montar essa planilha e verificar semanalmente se as obras estão seguindo as metas do mês ( conseguindo cumprir o VP planejado ) mas sempre com assertividade ao planejado.,Excel,REPLAN,💎 Muito Importante,2.0
+2025-05-23 13:06:11.825993 - ERRO ao decodificar JSON: Planilha de Cheque,Utilizo as bases do BIG e alguns paineis do Power PI para montar essa planilha e acompanhar os principais indices da obra em um resumo. Facilita muito principalmente para o Gestor de obras. Acompanhamos semanalmente com essa planilha ( VP , AMP, IP , Estoque , Projeção , custo incorrido, entregas AT , IA , MOP , GED, Depreciação de equipamento... ) e mensalmente ( PLS , IA , IB , Farol , Forecast ).,BIG + Excel,AUXÍLIO REGIONAL,💎 Muito Importante,10.0
+2025-05-23 13:06:11.828702 - ERRO ao decodificar JSON: Planilha Resumo medição MOP,Utilizo a base do SAP BO de MO para gerar uma planilha de resumo das medições MOP ( com os serviços sendo comparado com o orçamento, ranking de premiações , analise de serviços especiais...).,SAP BO + Excel,MOP/EMP,💎 Muito Importante,2.0
+2025-05-23 13:06:11.830780 - ERRO ao decodificar JSON: Planilha Capa de medição EMP,A planilha faz um resumo da medição de EMP mostrando se a empresa esta se pagando ou não. Isso é importante para fazer o acompanhamento e não deixar o EMP quebrar.,Excel,MOP/EMP,🪙 Importante,1.0
+2025-05-23 13:06:11.832841 - ERRO ao decodificar JSON: Planilha LOB,Utilizo a base do project após o replan para gerar as linhas de balanço da obra.,Excel,REPLAN,💎 Muito Importante,10.0
+2025-05-23 13:06:11.834652 - ERRO ao decodificar JSON: Planilha Start de Material e MO,Utilizo a base do project para gerar uma planilha de Start de compras de material e tambem e contratação de MO.,Excel,REPLAN,💎 Muito Importante,4.0
+2025-05-23 13:06:11.836324 - ERRO ao decodificar JSON: Planilha Proximas Atividades,Utilizo a planilha pronta que é gerada no PWA ( lista de proximas atividades ) para fazer a reunião com os engenheiros e definir as metas no replan.,Excel,REPLAN,💎 Muito Importante,10.0
+2025-05-23 13:06:11.838501 - ERRO ao decodificar JSON: Planilha One Page,Utilizo a planilha pronta do PWA para analisar a nova curva de produção após o replan.,Excel,REPLAN,💎 Muito Importante,5.0
+2025-05-23 13:06:11.841708 - ERRO ao decodificar JSON: Paineis Power BI - IB , MO RATEIO , Serviços Especiais...,Criei alguns paines no Power BI para facilitar a analise de alguns indices ( ele faz um resumo do valor orç total , valor orç por unid , incorrido total , incorrido por unid , projeção , historico mês a mês...),Power BI,CUSTOS,🪙 Importante,7.0
+2025-05-23 13:06:11.844938 - ERRO ao decodificar JSON: Planilha de IA,Planilha onde fazemos o acompanhamento dos custos de IA da obra. A base vem do SAP BO e tbm do ENG177.,Excel,CUSTOS,💎 Muito Importante,7.0
+2025-05-23 13:06:11.847543 - ERRO ao decodificar JSON: Planilha de IEQ,Planilha onde fazemos o acompanhamento dos custos de IEQ da obra. A base vem do SAP BO.,Excel,CUSTOS,💎 Muito Importante,7.0
+2025-05-23 13:06:11.850002 - ERRO ao decodificar JSON: Planilha de ADM,Planilha onde fazemos o acompanhamento dos custos de ADM da obra. A base vem do SAP BO e de outras planilhas.,Excel,CUSTOS,💎 Muito Importante,7.0
+2025-05-23 13:06:11.852788 - ERRO ao decodificar JSON: Acompanhamento de Medição EMP,Garantir lançamento correto de medição,SAP BO + Excel,MOP/EMP,💎 Muito Importante,12.0
+2025-05-23 13:06:11.855144 - ERRO ao decodificar JSON: Fluxo de Caixa Semanal - Cheque,Acompanhamento da Projeção Semanal,Excel,CUSTOS,💎 Muito Importante,10.0
+2025-05-23 13:06:11.857583 - ERRO ao decodificar JSON: Semanômetro,Acompanhamento de Produção Semanal,Excel,PROJECT,💎 Muito Importante,8.0
+2025-05-23 13:06:11.860876 - ERRO ao decodificar JSON: Semanômetro,Após o replan, avanço as semanas no project e copio as colunas de atividade, amp e % realizado numa planilha em excel para que a obra saiba o quanto e o que terá que produzir semanalmente. Essa planilha é atualizada todas as semanas após o lançamento e enviada por email para a obra/gestor com a finalidade principal de acompanhar os avanços semanais,  evolução ao longo do mês e aderência ao planejamento.,Excel,REPLAN,💎 Muito Importante,10.0
+2025-05-23 13:06:11.863270 - ERRO ao decodificar JSON: Acompanhamento MOP,Analisar serviços especiais, custo unitário, prêmios elevados. Como a atualização do painel Operações é apenas 1x ao dia, baixo a base do BO sempre que há carga e alimento essa planilha pra que eu possa analisar a MOP antes de aprovar.,SAP BO + Excel,MOP/EMP,🪙 Importante,3.0
+2025-05-23 13:06:11.865653 - ERRO ao decodificar JSON: Acompanhamento EMP,Deixar registrado e acompanhar as medições de empreiteiro ao longo dos meses.,Excel,MOP/EMP,🪙 Importante,2.0
+2025-05-23 13:06:11.868185 - ERRO ao decodificar JSON: Planilha do Vivo,Analisar e projetar o custo de acordo com a realidade de cada obra. Analisando custos de contratos reais (ao invés de considerar o orçado) que ainda irão incorrer e principalmente para termos uma referência do custo final de obra e conseguir ter tratativas enquanto há tempo.,SAP BO + Excel,CUSTOS,🟢 Pouco Importante,4.0
+2025-05-23 13:06:11.870831 - ERRO ao decodificar JSON: Simulador Digital,Simulação de custos de terreno. ,Outra,CUSTOS,💎 Muito Importante,18.0
+2025-05-23 13:06:11.872718 - ERRO ao decodificar JSON: Gcron,Cronograma de obra para alimentar o simulador Digital.,Outra,CUSTOS,💎 Muito Importante,2.0
+2025-05-23 13:06:11.875493 - ERRO ao decodificar JSON: MRV obras,Lançamento de pedidos em terrenos,Outra,AUXÍLIO REGIONAL,💎 Muito Importante,8.0
+2025-05-23 13:06:11.877923 - ERRO ao decodificar JSON: MRV Terrenos,Visualização de terrenos e apoio ao DI,Outra,AUXÍLIO REGIONAL,💎 Muito Importante,5.0
+2025-05-23 13:06:11.880816 - ERRO ao decodificar JSON: SAP,Aprovar requisição,Outra,AUXÍLIO REGIONAL,💎 Muito Importante,2.0
+2025-05-23 13:06:11.883175 - ERRO ao decodificar JSON: EXCEL,ACOMPANHAMENTO MO (SEM SISTEMA DA EMPRESA) E SEM FLUXO EXISTENTE COM DAE,Excel,SEQUENCIAMENTO MO,💎 Muito Importante,6.0
+2025-05-23 13:06:11.885198 - ERRO ao decodificar JSON: APLIATIVO TRELLO,ACOMPANHAMENTO DE DEMANDAS SOLICITADAS,Outra,PRODUTIVIDADE,💎 Muito Importante,1.0
+2025-05-23 13:06:11.887007 - ERRO ao decodificar JSON: MONDEI.COM.BR,FERRAMENTA TOP PARA PAINEIS DIVERSOS PARA AS OBRAS E DEMANDAS SOLCITADAS AOS CONSULTORES E REPORT PARA GESTOR, QUE ATÉ O MOMENTO NAO EXISTIA NENHUMA FERRAMENTE COM GRAFICOS CONCOMITANTES,Outra,SEQUENCIAMENTO MO,💎 Muito Importante,3.0
+2025-05-23 13:06:11.889520 - ERRO ao decodificar JSON: nan
+2025-05-23 13:06:11.892160 - ERRO ao decodificar JSON: Planilha ADM,Fazer acompanhamento dos custos com IA, IEQ e Custos Fixos.,Excel,CUSTOS,🪙 Importante,8.0
+2025-05-23 13:06:11.895242 - ERRO ao decodificar JSON: Planilhas de Análise MOP e EMP,Analisar produtividade e custo dos serviços MOP, bem como saúde financeira de EMP.,Power BI,MOP/EMP,💎 Muito Importante,8.0
+2025-05-23 13:06:11.898433 - ERRO ao decodificar JSON: Planilha ADM,Fazer acompanhamento dos custos com IA, IEQ e Custos Fixos.,Excel,CUSTOS,🪙 Importante,8.0
+2025-05-23 13:06:11.900588 - ERRO ao decodificar JSON: Planilhas de Análise MOP e EMP,Analisar produtividade e custo dos serviços MOP, bem como saúde financeira de EMP.,Excel,MOP/EMP,💎 Muito Importante,8.0
+2025-05-23 13:06:11.902775 - ERRO ao decodificar JSON: nan
+2025-05-23 13:06:11.905300 - ERRO ao decodificar JSON: Excel,Controle e Análises,Excel,ESTOQUE,💎 Muito Importante,120.0
+2025-05-23 13:06:11.907653 - ERRO ao decodificar JSON: Project,Cronograma,Outra,AUXÍLIO REGIONAL,🪙 Importante,40.0
+2025-05-23 13:06:11.911015 - ERRO ao decodificar JSON: excel,planilhas diversas ,Outra,AUXÍLIO REGIONAL,💎 Muito Importante,80.0
+2025-05-23 13:06:11.914219 - ERRO ao decodificar JSON: Sequenciamento e lista de funcionários.,Acompanhamento da mão de obra  antes e durante o sequenciamento e acompanhamento da mão de obra,Excel,SEQUENCIAMENTO MO,💎 Muito Importante,40.0
+2025-05-23 13:06:11.916513 - ERRO ao decodificar JSON: Admissões e desligamentos.,Acompanhar demissões e desligamentos da MOP.,Excel,TURNOVER,💎 Muito Importante,1.0
+2025-05-23 13:06:11.918565 - ERRO ao decodificar JSON: NOVO - Gst Prateleira,Acompanhamento de CPF/Déficit semana de MO,Excel,MOP/EMP,💎 Muito Importante,40.0
+2025-05-23 13:06:11.920465 - ERRO ao decodificar JSON: Recruta Simples,Armazenar informações de currículos.,Excel,MOP/EMP,💎 Muito Importante,40.0
+2025-05-23 13:06:11.922976 - ERRO ao decodificar JSON: nan
+2025-05-23 13:06:11.925775 - ERRO ao decodificar JSON: OnePage ,Acompanhamento cpf EMP regional ,Excel,AUXÍLIO REGIONAL,💎 Muito Importante,20.0
+2025-05-23 13:06:11.928489 - ERRO ao decodificar JSON: PowerApps,Sequenciamento,Outra,SEQUENCIAMENTO MO,💎 Muito Importante,16.0
+2025-05-23 13:06:11.931216 - ERRO ao decodificar JSON: Déficit mão de obra ,Mapear os déficits ,Excel,AUXÍLIO REGIONAL,💎 Muito Importante,5.0
+2025-05-23 13:06:11.934134 - ERRO ao decodificar JSON: nan
+2025-05-23 13:06:11.936552 - ERRO ao decodificar JSON: Follow Up de Habite-se,HABITE-SE | Mapear e acompanhar as restrições e ações das obras antes e durante o desenvolvimento do processo de habite-se
+2025-05-23 13:06:11.938934 - ERRO ao decodificar JSON: ,Excel,OUTROS,💎 Muito Importante,32.0
+2025-05-23 13:06:11.941627 - ERRO ao decodificar JSON: Follow Up de Habite-se,HABITE-SE | Mapear e acompanhar as restrições e ações das obras antes e durante o desenvolvimento do processo de habite-se
+2025-05-23 13:06:11.944333 - ERRO ao decodificar JSON: ,Excel,OUTROS,💎 Muito Importante,32.0
+2025-05-23 13:06:11.946918 - ERRO ao decodificar JSON: PBO - Passagem de  Bastão de Obra,HABITE-SE | Controle das documentações repassadas pelo DI para a obra após emissão de RI.,Excel,OUTROS,💎 Muito Importante,8.0
+2025-05-23 13:06:11.949598 - ERRO ao decodificar JSON: Painel Legal,HABITE-SE | Continuidade do PBO, acompanhamento das documentações, validades e condicionantes até o início do Follow Up de Habite-se
+2025-05-23 13:06:11.951834 - ERRO ao decodificar JSON: ,Excel,OUTROS,💎 Muito Importante,20.0
+2025-05-23 13:06:11.953993 - ERRO ao decodificar JSON: PEV - Procedimento de Execução de Vistoria,HABITE-SE | Estabelece as diretrizes e normativas observadas nas vistorias dos órgãos municipais/estaduais na fase de habite-se, fornecendo os pontos de analise e ações necessárias
+2025-05-23 13:06:11.956680 - ERRO ao decodificar JSON: ,Excel,OUTROS,💎 Muito Importante,8.0
+2025-05-23 13:06:11.959999 - ERRO ao decodificar JSON: CHECK-LIST PRE VISTORIA ,GI_MAPEAN,Excel,OUTROS,💎 Muito Importante,1.0
+2025-05-23 13:06:11.962813 - ERRO ao decodificar JSON: OBRA SOFT,RETESTE,Outra,OUTROS,💎 Muito Importante,4.0
+2025-05-23 13:06:11.966003 - ERRO ao decodificar JSON: ACOMPANHAMENTO DE TRANSFORMADORES_GI - Acompanhamento da processo de vistoria, quantitativos, custos, prazos, etc._Excel_OUTROS_💎 Muito Importante_2.0
+2025-05-23 13:06:11.968858 - ERRO ao decodificar JSON: VISITA ORIENTATIVA DE OBRA_GI - Acompanhamento das restrições, orientações, relatórios de visitas, alinhamentos, etc._Report e-mail_OUTROS_🪙 Importante_20.0
+2025-05-23 13:06:11.971119 - ERRO ao decodificar JSON: CHECKLIST HABITE-SE_GI - Acompanhamento das restrições de  cada atividade com prazos e responsáveis._Excel_OUTROS_💎 Muito Importante_20.0
+2025-05-23 13:06:11.973325 - ERRO ao decodificar JSON: REDES PRESSURIZADAS DE OBRA_GI - Acompanhamento das redes pressurizadas de cada obra de acordo com a AMP._Excel_OUTROS_🪙 Importante_4.0
+2025-05-23 13:06:11.976536 - ERRO ao decodificar JSON: RELATÓRIO DE RETESTE DE OBRA_GI - Envio dos relatórios de acordo com as vistorias._Report e-mail_OUTROS_🟢 Pouco Importante_10.0
+2025-05-23 13:06:11.979682 - ERRO ao decodificar JSON: ACOMPANHAMENTO DE AGILIS_GI - Acompanhamento de agilis (datas, responsáveis, etc)._Excel_OUTROS_🟢 Pouco Importante_6.0
+2025-05-23 13:06:11.982161 - ERRO ao decodificar JSON: Painel Inspeção da Qualidade - ASTTCN012_GI - Análise de chamados pós obras_Power BI_OUTROS_🪙 Importante_2.0
+2025-05-23 13:06:11.984644 - ERRO ao decodificar JSON: Painel Gestão de Problemas Pós Entrega - ASTTCN006_GI - Análise de chamados pós obras_Power BI_OUTROS_🪙 Importante_2.0
+2025-05-23 13:06:11.986839 - ERRO ao decodificar JSON: Painel Cadastro de Itens - SPM049_GI - Consulta de materiais e planilha rotation._Power BI_OUTROS_🟢 Pouco Importante_2.0
+2025-05-23 13:06:11.989246 - ERRO ao decodificar JSON: nan
+2025-05-23 13:06:11.992526 - ERRO ao decodificar JSON: Follow Up de Habite-se_HABITE-SE | Mapear e acompanhar as restrições e ações das obras antes e durante o desenvolvimento do processo de habite-se
+2025-05-23 13:06:11.995033 - ERRO ao decodificar JSON: _Excel_OUTROS_💎 Muito Importante_32.0
+2025-05-23 13:06:11.998184 - ERRO ao decodificar JSON: PBO - Passagem de  Bastão de Obra_HABITE-SE | Controle das documentações repassadas pelo DI para a obra após emissão de RI._Excel_OUTROS_💎 Muito Importante_8.0
+2025-05-23 13:06:12.000580 - ERRO ao decodificar JSON: Painel Legal_HABITE-SE | Continuidade do PBO, acompanhamento das documentações, validades e condicionantes até o início do Follow Up de Habite-se
+2025-05-23 13:06:12.002766 - ERRO ao decodificar JSON: _Excel_OUTROS_💎 Muito Importante_20.0
+2025-05-23 13:06:12.005062 - ERRO ao decodificar JSON: PEV - Procedimento de Execução de Vistoria_HABITE-SE | Estabelece as diretrizes e normativas observadas nas vistorias dos órgãos municipais/estaduais na fase de habite-se, fornecendo os pontos de analise e ações necessárias
+2025-05-23 13:06:12.007791 - ERRO ao decodificar JSON: _Outra_OUTROS_💎 Muito Importante_8.0
+2025-05-23 13:06:12.011478 - ERRO ao decodificar JSON: Follow Up de Habite-se_HABITE-SE | Mapear e acompanhar as restrições e ações das obras antes e durante o desenvolvimento do processo de habite-se
+2025-05-23 13:06:12.014473 - ERRO ao decodificar JSON: _Excel_OUTROS_💎 Muito Importante_32.0
+2025-05-23 13:06:12.016759 - ERRO ao decodificar JSON: PBO - Passagem de  Bastão de Obra_HABITE-SE | Controle das documentações repassadas pelo DI para a obra após emissão de RI._Excel_OUTROS_💎 Muito Importante_8.0
+2025-05-23 13:06:12.019631 - ERRO ao decodificar JSON: Painel Legal_HABITE-SE | Continuidade do PBO, acompanhamento das documentações, validades e condicionantes até o início do Follow Up de Habite-se
+2025-05-23 13:06:12.022008 - ERRO ao decodificar JSON: _Excel_OUTROS_💎 Muito Importante_20.0
+2025-05-23 13:06:12.024889 - ERRO ao decodificar JSON: PEV - Procedimento de Execução de Vistoria_HABITE-SE | Estabelece as diretrizes e normativas observadas nas vistorias dos órgãos municipais/estaduais na fase de habite-se, fornecendo os pontos de analise e ações necessárias
+2025-05-23 13:06:12.028450 - ERRO ao decodificar JSON: _Outra_OUTROS_💎 Muito Importante_8.0
+2025-05-23 13:06:12.031359 - ERRO ao decodificar JSON: MRV Bússola_acesso a projeção, orçamento e relação de ativos_BIG + Excel_CUSTOS_💎 Muito Importante_2.0
+2025-05-23 13:06:12.033841 - ERRO ao decodificar JSON: SAP BO_Acesso ao Gerencial eng 015 e incorridos_SAP BO + Excel_CUSTOS_💎 Muito Importante_3.0
+2025-05-23 13:06:12.036872 - ERRO ao decodificar JSON: SAP_Consultar NF e centro de custo_Outra_OUTROS_🪙 Importante_1.0
+2025-05-23 13:06:12.039507 - ERRO ao decodificar JSON: MRV Obras_Conferencia MOP e EMP_Outra_MOP/EMP_💎 Muito Importante_4.0
+2025-05-23 13:06:12.042483 - ERRO ao decodificar JSON: Cartilha de Custos_Informação sobre alocação de custos_Outra_CUSTOS_🪙 Importante_1.0
+2025-05-23 13:06:12.045217 - ERRO ao decodificar JSON: MS Project_Ajustes planejamento obra_Outra_PROJECT_💎 Muito Importante_4.0
+2025-05-23 13:06:12.047840 - ERRO ao decodificar JSON: Excell_Envio de acompanhamento semanal das obras_Excel_PRODUTIVIDADE_💎 Muito Importante_3.0
+2025-05-23 13:06:12.050232 - ERRO ao decodificar JSON: ONE Page_Acompanhamento VP forecast_Outra_PROJECT_💎 Muito Importante_2.0
+2025-05-23 13:06:12.102323 - ERRO ao salvar a planilha tratada: [Errno 13] Permission denied: '.\\modelo_base_dados_tratada.xlsx'

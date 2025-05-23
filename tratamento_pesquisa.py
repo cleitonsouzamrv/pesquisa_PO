@@ -45,17 +45,18 @@ def tratar_base(input_file='base_dados_pesquisa_PO.xlsx',
             registros_tratados.append({
                 'E-mail': email,
                 'Data': data,
-                'Tipo': 'Painel',
-                'Nome': nome,
-                'Comentário': comentario,
-                'Nota': nota,
-                'Ferramenta - Nome': '',
-                'Ferramenta - Objetivo': '',
-                'Ferramenta - Tipo': '',
-                'Ferramenta - Categoria': '',
-                'Ferramenta - Importância': '',
-                'Ferramenta - Horas gastas mensais': ''
+                'Tipo': 'Ferramenta',
+                'Nome': '',
+                'Comentário': '',
+                'Nota': '',
+                'Ferramenta - Nome': f_partes.get('Nome', ''),
+                'Ferramenta - Objetivo': f_partes.get('Objetivo', ''),
+                'Ferramenta - Tipo': f_partes.get('Tipo', ''),
+                'Ferramenta - Categoria': f_partes.get('Categoria', ''),
+                'Ferramenta - Importância': f_partes.get('Importância', ''),
+                'Ferramenta - Horas gastas mensais': float(f_partes.get('Horas', 0)) if str(f_partes.get('Horas', '')).replace('.', '', 1).isdigit() else ''
             })
+
 
         # Ferramentas
         ferramentas_raw = str(row.get(COL_FERRAMENTAS, '')).split(';')

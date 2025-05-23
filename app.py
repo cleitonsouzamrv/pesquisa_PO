@@ -102,7 +102,9 @@ paineis_lista = [
     "Painel Performance da Produção - ENGPDC029", 
     "Painel Qualidade - ENGPDC007",
     "Painel SSMA Regionais - ENGPDC030", 
-    "Relatório de Métricas de Preços e Serviços - ENGPDC004"
+    "Relatório de Métricas de Preços e Serviços - ENGPDC004",
+    "Painel Gestão de Problema Pós Entrega - ASTTCN006",
+    "Painel Vistoria da Qualidade - ASTTCN010"
 ]
 
 # Multiselect para selecionar painéis utilizados
@@ -191,17 +193,22 @@ for i in range(st.session_state.ferramenta_count):
     if st.button(f"🗑️ Remover Ferramenta {i+1}"):
         remover_indices.append(i)
 
+
     # Armazena a ferramenta preenchida
     if nome.strip():
-        ferramentas.append(f"{nome}_{objetivo}_{tipo}_{categoria}_{importancia}_{horas}")
-        ferramentas_resumo.append({
+        ferramenta_dict = {
             "Nome": nome,
             "Objetivo": objetivo,
             "Tipo": tipo,
             "Categoria": categoria,
             "Importância": importancia,
-            "Horas": horas
-        })
+            # ✅ Aqui garantimos que sempre será um float
+            "Horas": float(horas) if isinstance(horas, (int, float)) else 0.0
+        }
+        ferramentas.append(json.dumps(ferramenta_dict, ensure_ascii=False))
+        ferramentas_resumo.append(ferramenta_dict)
+
+
 
 # Remove as ferramentas marcadas
 if remover_indices:
