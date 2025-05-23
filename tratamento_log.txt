@@ -8,3 +8,20 @@
 2025-05-23 10:54:31.420424 - ERRO ao salvar a planilha tratada: [Errno 13] Permission denied: '.\\modelo_base_dados_tratada.xlsx'
 2025-05-23 10:56:12.990389 - ERRO ao salvar a planilha tratada: [Errno 13] Permission denied: '.\\modelo_base_dados_tratada.xlsx'
 2025-05-23 10:56:13.025646 - ERRO ao salvar a planilha tratada: [Errno 13] Permission denied: '.\\modelo_base_dados_tratada.xlsx'
+2025-05-23 11:02:06.507998 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 343 registros
+2025-05-23 11:02:07.159729 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 343 registros
+2025-05-23 11:03:04.487265 - ERRO ao salvar a planilha tratada: [Errno 13] Permission denied: '.\\modelo_base_dados_tratada.xlsx'
+2025-05-23 11:03:04.491374 - ERRO ao salvar a planilha tratada: [Errno 13] Permission denied: '.\\modelo_base_dados_tratada.xlsx'
+2025-05-23 11:17:19.113036 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 363 registros
+2025-05-23 11:17:22.838420 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 363 registros
+2025-05-23 11:17:23.063712 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 363 registros
+2025-05-23 11:17:29.488311 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 363 registros
+2025-05-23 11:17:29.594426 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 363 registros
+2025-05-23 11:17:37.609180 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 363 registros
+2025-05-23 11:17:37.725246 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 363 registros
+2025-05-23 11:22:16.272018 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 331 registros
+2025-05-23 11:22:16.395784 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 331 registros
+2025-05-23 11:22:23.635659 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 331 registros
+2025-05-23 11:22:23.727764 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 331 registros
+2025-05-23 11:23:51.060536 - ERRO ao salvar a planilha tratada: [Errno 13] Permission denied: '.\\modelo_base_dados_tratada.xlsx'
+2025-05-23 11:23:51.086220 - ERRO ao salvar a planilha tratada: [Errno 13] Permission denied: '.\\modelo_base_dados_tratada.xlsx'
