@@ -8,6 +8,12 @@ from watchdog.events import FileSystemEventHandler
 
 LOG_FILE = 'tratamento_log.txt'
 
+# Nomes exatos das colunas conforme sua planilha
+COL_EMAIL = 'E-mail MRV'
+COL_DATA = 'Data/Hora do Envio'
+COL_PAINEIS = 'Painéis'
+COL_FERRAMENTAS = 'Ferramentas'
+
 def extrair_info(texto):
     """
     Extrai o nome, o comentário (entre aspas simples) e a nota (após 'nota':) de cada item.
@@ -53,11 +59,11 @@ def tratar_base(input_file='base_dados_pesquisa_PO.xlsx',
     registros_tratados = []
 
     for idx, row in df.iterrows():
-        email = row['E-mail']
-        data = row['Data']
+        email = row[COL_EMAIL]
+        data = row[COL_DATA]
 
         # Tratamento dos Painéis
-        paineis_raw = str(row.get('Painéis', '')).split(';')
+        paineis_raw = str(row.get(COL_PAINEIS, '')).split(';')
         for painel_item in paineis_raw:
             if painel_item.strip() == '':
                 continue
@@ -72,7 +78,7 @@ def tratar_base(input_file='base_dados_pesquisa_PO.xlsx',
             })
 
         # Tratamento das Ferramentas
-        ferramentas_raw = str(row.get('Ferramentas', '')).split(';')
+        ferramentas_raw = str(row.get(COL_FERRAMENTAS, '')).split(';')
         for ferramenta_item in ferramentas_raw:
             if ferramenta_item.strip() == '':
                 continue
@@ -87,8 +93,6 @@ def tratar_base(input_file='base_dados_pesquisa_PO.xlsx',
             })
 
     df_tratado = pd.DataFrame(registros_tratados)
-
-    # Sempre processa todos os dados da base original
 
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     tmp_file = os.path.join(output_dir, f"{base_output_name}_{timestamp}.tmp")
