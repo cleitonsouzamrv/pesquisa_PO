@@ -1,54 +1,25 @@
 import time
 import pandas as pd
-import re
 import os
 from datetime import datetime
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
+from utils_pesquisa import extrair_info_painel, desmembrar_ferramenta
 
 LOG_FILE = 'tratamento_log.txt'
 
-# Nomes exatos das colunas conforme sua planilha
 COL_EMAIL = 'E-mail MRV'
 COL_DATA = 'Data/Hora do Envio'
 COL_PAINEIS = 'Painéis'
 COL_FERRAMENTAS = 'Ferramentas'
 
-def extrair_info(texto):
-    """
-    Extrai o nome, o comentário após {'comentario': '...'} e a nota após 'nota':.
-    """
-    nome = texto.split(':')[0].strip()
-    
-    comentario = None
-    nota = None
-
-    # Busca o comentário após {'comentario': '
-    comentario_match = re.search(r"\{'comentario':\s*'(.*?)'", texto)
-    if comentario_match:
-        comentario = comentario_match.group(1).strip()
-
-    # Busca nota após 'nota':
-    nota_match = re.search(r"'nota':\s*([0-9\.]+)", texto)
-    if nota_match:
-        nota = nota_match.group(1).strip()
-
-    return nome, comentario, nota
-
 def registrar_log(mensagem):
-    """
-    Registra uma mensagem no arquivo de log.
-    """
     with open(LOG_FILE, 'a', encoding='utf-8') as f:
         f.write(f"{mensagem}\n")
 
 def tratar_base(input_file='base_dados_pesquisa_PO.xlsx', 
                 output_dir='.', 
                 base_output_name='modelo_base_dados_tratada'):
-    """
-    Trata toda a base atual de dados, gerando uma única planilha tratada.
-    Sempre processa todos os dados da base, incluindo dados antigos.
-    """
     print(f"🔄 Detectada atualização. Iniciando tratamento...")
 
     try:
@@ -64,12 +35,12 @@ def tratar_base(input_file='base_dados_pesquisa_PO.xlsx',
         email = row[COL_EMAIL]
         data = row[COL_DATA]
 
-        # Tratamento dos Painéis
+        # Painéis
         paineis_raw = str(row.get(COL_PAINEIS, '')).split(';')
         for painel_item in paineis_raw:
             if painel_item.strip() == '':
                 continue
-            nome, comentario, nota = extrair_info(painel_item)
+            nome, comentario, nota = extrair_info_painel(painel_item)
             registros_tratados.append({
                 'E-mail': email,
                 'Data': data,
@@ -85,35 +56,22 @@ def tratar_base(input_file='base_dados_pesquisa_PO.xlsx',
                 'Ferramenta - Horas gastas mensais': ''
             })
 
-        # Tratamento das Ferramentas
+        # Ferramentas
         ferramentas_raw = str(row.get(COL_FERRAMENTAS, '')).split(';')
         for ferramenta_item in ferramentas_raw:
             if ferramenta_item.strip() == '':
                 continue
-            nome, comentario, nota = extrair_info(ferramenta_item)
 
-            # Agora desmembrando em múltiplas colunas
-            partes = [parte.strip() for parte in ferramenta_item.split(',')]
-            f_nome = partes[0] if len(partes) > 0 else ''
-            f_objetivo = partes[1] if len(partes) > 1 else ''
-            f_tipo = partes[2] if len(partes) > 2 else ''
-            f_categoria = partes[3] if len(partes) > 3 else ''
-            f_importancia = partes[4] if len(partes) > 4 else ''
-            f_horas = partes[5] if len(partes) > 5 else ''
+            f_partes = desmembrar_ferramenta(ferramenta_item)
 
             registros_tratados.append({
                 'E-mail': email,
                 'Data': data,
                 'Tipo': 'Ferramenta',
-                'Nome': nome,
-                'Comentário': comentario,
-                'Nota': nota,
-                'Ferramenta - Nome': f_nome,
-                'Ferramenta - Objetivo': f_objetivo,
-                'Ferramenta - Tipo': f_tipo,
-                'Ferramenta - Categoria': f_categoria,
-                'Ferramenta - Importância': f_importancia,
-                'Ferramenta - Horas gastas mensais': f_horas
+                'Nome': f_partes['Ferramenta - Nome'],
+                'Comentário': '',
+                'Nota': '',
+                **f_partes
             })
 
     df_tratado = pd.DataFrame(registros_tratados)
@@ -131,9 +89,6 @@ def tratar_base(input_file='base_dados_pesquisa_PO.xlsx',
         registrar_log(f"{datetime.now()} - ERRO ao salvar a planilha tratada: {e}")
 
 class MonitorHandler(FileSystemEventHandler):
-    """
-    Handler do Watchdog: executa o tratamento ao detectar modificação no arquivo monitorado.
-    """
     def __init__(self, input_file, output_dir, base_output_name):
         super().__init__()
         self.input_file = input_file
@@ -153,7 +108,7 @@ if __name__ == "__main__":
     event_handler = MonitorHandler(input_file, output_dir, base_output_name)
     observer = Observer()
     observer.schedule(event_handler, path=path, recursive=False)
-    
+
     print("🚀 Monitorando alterações na base de dados...")
     print(f"📂 Pasta monitorada: {path}")
     print(f"📄 Arquivo monitorado: {input_file}")
