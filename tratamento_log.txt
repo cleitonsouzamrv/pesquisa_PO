@@ -1,0 +1,1 @@
+2025-05-23 09:23:45.839085 - ERRO ao salvar a planilha tratada: No engine for filetype: 'tmp'

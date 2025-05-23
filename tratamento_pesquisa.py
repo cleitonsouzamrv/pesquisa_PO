@@ -95,12 +95,10 @@ def tratar_base(input_file='base_dados_pesquisa_PO.xlsx',
     df_tratado = pd.DataFrame(registros_tratados)
 
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    tmp_file = os.path.join(output_dir, f"{base_output_name}_{timestamp}.tmp")
     final_file = os.path.join(output_dir, f"{base_output_name}_{timestamp}.xlsx")
 
     try:
-        df_tratado.to_excel(tmp_file, index=False)
-        os.rename(tmp_file, final_file)
+        df_tratado.to_excel(final_file, index=False)
         print(f'✅ Base tratada salva em: {final_file}')
 
         log_msg = f"{datetime.now()} - Tratamento concluído: {final_file} - {len(df_tratado)} registros"
