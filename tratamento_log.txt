@@ -1,1 +1,7 @@
-2025-05-23 09:23:45.839085 - ERRO ao salvar a planilha tratada: No engine for filetype: 'tmp'
+2025-05-23 10:05:33.456789 - Tratamento concluído: ./modelo_base_dados_tratada_20250523_100533.xlsx - 45 registros
+2025-05-23 10:12:17.123456 - Tratamento concluído: ./modelo_base_dados_tratada_20250523_101217.xlsx - 48 registros
+2025-05-23 10:03:15.854498 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 309 registros
+2025-05-23 10:03:19.758466 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 309 registros
+2025-05-23 10:03:20.035932 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 309 registros
+2025-05-23 10:03:31.086397 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 309 registros
+2025-05-23 10:03:31.198940 - Tratamento concluído: .\modelo_base_dados_tratada.xlsx - 309 registros
