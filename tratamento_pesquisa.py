@@ -1,10 +1,11 @@
 import time
 import pandas as pd
 import os
+import json
 from datetime import datetime
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-from utils_pesquisa import extrair_info_painel, desmembrar_ferramenta
+from utils_pesquisa import extrair_info_painel  # A função desmembrar_ferramenta não é mais necessária
 
 LOG_FILE = 'tratamento_log.txt'
 
@@ -63,16 +64,26 @@ def tratar_base(input_file='base_dados_pesquisa_PO.xlsx',
             if ferramenta_item == '':
                 continue
 
-            f_partes = desmembrar_ferramenta(ferramenta_item)
+            try:
+                f_partes = json.loads(ferramenta_item)
+            except json.JSONDecodeError:
+                print(f"❌ Erro ao decodificar JSON: {ferramenta_item}")
+                registrar_log(f"{datetime.now()} - ERRO ao decodificar JSON: {ferramenta_item}")
+                continue
 
             registros_tratados.append({
                 'E-mail': email,
                 'Data': data,
                 'Tipo': 'Ferramenta',
-                'Nome': '',  # Deixa Nome vazio para evitar redundância
+                'Nome': '',  # Mantemos em branco para evitar redundância
                 'Comentário': '',
                 'Nota': '',
-                **f_partes
+                'Ferramenta - Nome': f_partes.get('Nome', ''),
+                'Ferramenta - Objetivo': f_partes.get('Objetivo', ''),
+                'Ferramenta - Tipo': f_partes.get('Tipo', ''),
+                'Ferramenta - Categoria': f_partes.get('Categoria', ''),
+                'Ferramenta - Importância': f_partes.get('Importância', ''),
+                'Ferramenta - Horas gastas mensais': f_partes.get('Horas', '')
             })
 
     df_tratado = pd.DataFrame(registros_tratados)
