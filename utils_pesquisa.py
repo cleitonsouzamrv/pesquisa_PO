@@ -25,7 +25,7 @@ def desmembrar_ferramenta(texto):
     Desmembra a string concatenada da ferramenta em:
     Nome, Objetivo, Tipo, Categoria, Importância, Horas.
     """
-    partes = [parte.strip() for parte in texto.split(',')]
+    partes = [parte.strip() for parte in texto.split('_')]
     return {
         'Ferramenta - Nome': partes[0] if len(partes) > 0 else '',
         'Ferramenta - Objetivo': partes[1] if len(partes) > 1 else '',
@@ -34,3 +34,4 @@ def desmembrar_ferramenta(texto):
         'Ferramenta - Importância': partes[4] if len(partes) > 4 else '',
         'Ferramenta - Horas gastas mensais': partes[5] if len(partes) > 5 else ''
     }
+

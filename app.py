@@ -193,7 +193,7 @@ for i in range(st.session_state.ferramenta_count):
 
     # Armazena a ferramenta preenchida
     if nome.strip():
-        ferramentas.append(f"{nome},{objetivo},{tipo},{categoria},{importancia},{horas}")
+        ferramentas.append(f"{nome}_{objetivo}_{tipo}_{categoria}_{importancia}_{horas}")
         ferramentas_resumo.append({
             "Nome": nome,
             "Objetivo": objetivo,
