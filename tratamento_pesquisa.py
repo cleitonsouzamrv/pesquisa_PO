@@ -59,7 +59,8 @@ def tratar_base(input_file='base_dados_pesquisa_PO.xlsx',
         # Ferramentas
         ferramentas_raw = str(row.get(COL_FERRAMENTAS, '')).split(';')
         for ferramenta_item in ferramentas_raw:
-            if ferramenta_item.strip() == '':
+            ferramenta_item = ferramenta_item.strip()
+            if ferramenta_item == '':
                 continue
 
             f_partes = desmembrar_ferramenta(ferramenta_item)
@@ -68,7 +69,7 @@ def tratar_base(input_file='base_dados_pesquisa_PO.xlsx',
                 'E-mail': email,
                 'Data': data,
                 'Tipo': 'Ferramenta',
-                'Nome': f_partes['Ferramenta - Nome'],
+                'Nome': '',  # Deixa Nome vazio para evitar redundância
                 'Comentário': '',
                 'Nota': '',
                 **f_partes
