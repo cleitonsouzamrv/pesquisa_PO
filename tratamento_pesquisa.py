@@ -16,22 +16,24 @@ COL_FERRAMENTAS = 'Ferramentas'
 
 def extrair_info(texto):
     """
-    Extrai o nome, o comentário (entre aspas simples) e a nota (após 'nota':) de cada item.
+    Extrai o nome, o comentário após {'comentario': '...'} e a nota após 'nota':.
     """
-    painel = texto.split(':')[0].strip()
+    nome = texto.split(':')[0].strip()
     
     comentario = None
     nota = None
 
-    comentario_match = re.search(r"'(.*?)'", texto)
+    # Busca o comentário após {'comentario': '
+    comentario_match = re.search(r"\{'comentario':\s*'(.*?)'", texto)
     if comentario_match:
         comentario = comentario_match.group(1).strip()
 
+    # Busca nota após 'nota':
     nota_match = re.search(r"'nota':\s*([0-9\.]+)", texto)
     if nota_match:
         nota = nota_match.group(1).strip()
 
-    return painel, comentario, nota
+    return nome, comentario, nota
 
 def registrar_log(mensagem):
     """
@@ -44,7 +46,7 @@ def tratar_base(input_file='base_dados_pesquisa_PO.xlsx',
                 output_dir='.', 
                 base_output_name='modelo_base_dados_tratada'):
     """
-    Trata toda a base atual de dados, gerando nova planilha tratada com timestamp.
+    Trata toda a base atual de dados, gerando uma única planilha tratada.
     Sempre processa todos os dados da base, incluindo dados antigos.
     """
     print(f"🔄 Detectada atualização. Iniciando tratamento...")
@@ -67,14 +69,20 @@ def tratar_base(input_file='base_dados_pesquisa_PO.xlsx',
         for painel_item in paineis_raw:
             if painel_item.strip() == '':
                 continue
-            painel, comentario, nota = extrair_info(painel_item)
+            nome, comentario, nota = extrair_info(painel_item)
             registros_tratados.append({
                 'E-mail': email,
                 'Data': data,
                 'Tipo': 'Painel',
-                'Nome': painel,
+                'Nome': nome,
                 'Comentário': comentario,
-                'Nota': nota
+                'Nota': nota,
+                'Ferramenta - Nome': '',
+                'Ferramenta - Objetivo': '',
+                'Ferramenta - Tipo': '',
+                'Ferramenta - Categoria': '',
+                'Ferramenta - Importância': '',
+                'Ferramenta - Horas gastas mensais': ''
             })
 
         # Tratamento das Ferramentas
@@ -82,20 +90,35 @@ def tratar_base(input_file='base_dados_pesquisa_PO.xlsx',
         for ferramenta_item in ferramentas_raw:
             if ferramenta_item.strip() == '':
                 continue
-            ferramenta, comentario, nota = extrair_info(ferramenta_item)
+            nome, comentario, nota = extrair_info(ferramenta_item)
+
+            # Agora desmembrando em múltiplas colunas
+            partes = [parte.strip() for parte in ferramenta_item.split(',')]
+            f_nome = partes[0] if len(partes) > 0 else ''
+            f_objetivo = partes[1] if len(partes) > 1 else ''
+            f_tipo = partes[2] if len(partes) > 2 else ''
+            f_categoria = partes[3] if len(partes) > 3 else ''
+            f_importancia = partes[4] if len(partes) > 4 else ''
+            f_horas = partes[5] if len(partes) > 5 else ''
+
             registros_tratados.append({
                 'E-mail': email,
                 'Data': data,
                 'Tipo': 'Ferramenta',
-                'Nome': ferramenta,
+                'Nome': nome,
                 'Comentário': comentario,
-                'Nota': nota
+                'Nota': nota,
+                'Ferramenta - Nome': f_nome,
+                'Ferramenta - Objetivo': f_objetivo,
+                'Ferramenta - Tipo': f_tipo,
+                'Ferramenta - Categoria': f_categoria,
+                'Ferramenta - Importância': f_importancia,
+                'Ferramenta - Horas gastas mensais': f_horas
             })
 
     df_tratado = pd.DataFrame(registros_tratados)
 
-    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    final_file = os.path.join(output_dir, f"{base_output_name}_{timestamp}.xlsx")
+    final_file = os.path.join(output_dir, f"{base_output_name}.xlsx")
 
     try:
         df_tratado.to_excel(final_file, index=False)
