@@ -158,7 +158,7 @@ ferramentas_resumo = []  # Lista para armazenar as ferramentas como dicionário
 categoria_lista = [
     "AUXÍLIO REGIONAL", "AMP X PLS", "DISCREPÂNCIA", "PROJECT",
     "ESTOQUE", "MOP/EMP", "CUSTOS", "REPLAN", "TURNOVER",
-    "SEQUENCIAMENTO MO", "PRODUTIVIDADE", "HORAS EXTRAS", "MATERIAIS", "OUTROS"
+    "SEQUENCIAMENTO MO", "PRODUTIVIDADE", "HORAS EXTRAS", "MATERIAIS", "URBANIZAÇÃO", "OUTROS"
 ]
 
 # Lista para armazenar índices que devem ser removidos
